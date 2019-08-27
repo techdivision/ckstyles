@@ -1,0 +1,40 @@
+# An example configuration:
+#TechDivision:
+#  CkStyles:
+#    InlineStyles:
+#      presets:
+#        'fontColor':
+#          label: 'Font color'
+#          options:
+#            'primary':
+#              label: 'Red'
+#              cssClass: 'my-class-red'
+#            'secondary':
+#              label: 'Green'
+#              cssClass: 'my-class-green'
+#            '':
+#              label: 'unset color'
+#              cssClass: null
+#        'fontSize':
+#          label: 'Font size'
+#          options:
+#            'small':
+#              label: 'Small'
+#              cssClass: 'my-class-size-small'
+#            'big':
+#              label: 'Large'
+#              cssClass: 'my-class-size-large'
+#            '':
+#              label: 'unset color'
+#              cssClass: null
+
+Neos:
+  Neos:
+    Ui:
+      resources:
+        javascript:
+          'TechDivision.CkStyles:Styles':
+            resource: resource://TechDivision.CkStyles/Public/JavaScript/CkStyles/Plugin.js
+      frontendConfiguration:
+        'TechDivision.CkStyles:InlineStyles': '${Configuration.setting(''TechDivision.CkStyles.InlineStyles'')}'
+        'TechDivision.CkStyles:BlockStyles': '${Configuration.setting(''TechDivision.CkStyles.BlockStyles'')}'

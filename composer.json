@@ -1,0 +1,29 @@
+{
+    "name": "techdivision/ckstyles",
+    "description": "Neos package which enables you adding your custom style classes for the CkEditor with a simple Yaml configuration",
+    "type": "neos-plugin",
+    "license": "GPL-3.0+",
+    "homepage": "https://www.techdivision.com",
+    "keywords": [ "ckeditor", "inline", "editing", "styling", "wysiwyg", "classes", "neos", "flow" ],
+    "authors": [
+        {
+            "name": "Neos developer team",
+            "email": "neos@techdivision.com",
+            "homepage": "https://www.techdivision.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "neos/neos-ui": ">=3.8 <4.0"
+    },
+    "extra": {
+        "neos": {
+            "package-key": "TechDivision.CkStyles",
+            "loading-order": {
+                "after": [
+                    "neos/neos"
+                ]
+            }
+        }
+    }
+}

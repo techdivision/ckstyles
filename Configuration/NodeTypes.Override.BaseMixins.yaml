@@ -1,0 +1,10 @@
+#'Neos.NodeTypes.BaseMixins:TextMixin':
+#  abstract: true
+#  properties:
+#    text:
+#      ui:
+#        inline:
+#          editorOptions:
+#            inlineStyling:
+#              fontColor: true
+#              fontSize: true

@@ -1,0 +1,18 @@
+{
+  "description": "",
+  "license": "GNU GPLv3",
+  "private": true,
+  "scripts": {
+    "build": "neos-react-scripts build",
+    "watch": "neos-react-scripts watch"
+  },
+  "devDependencies": {
+    "@neos-project/neos-ui-extensibility": "*"
+  },
+  "neos": {
+    "buildTargetDirectory": "../../../Public/JavaScript/CkStyles"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-basic-styles": "^10.0.0"
+  }
+}
