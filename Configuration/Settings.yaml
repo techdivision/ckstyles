@@ -25,7 +25,7 @@
 #              label: 'Large'
 #              cssClass: 'my-class-size-large'
 #            '':
-#              label: 'unset color'
+#              label: 'unset size'
 #              cssClass: null
 
 Neos:
