@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "neos/neos-ui": ">=3.8 <4.0"
+        "neos/neos-ui": ">=3.8 <6.0"
     },
     "extra": {
         "neos": {
