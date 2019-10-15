@@ -47,9 +47,6 @@ TechDivision:
             'secondary':
               label: 'Green'
               cssClass: 'my-class-green'
-            '':
-              label: 'unset color'
-              cssClass: null
         'fontSize':
           label: 'Font size'
           options:
@@ -59,11 +56,11 @@ TechDivision:
             'big':
               label: 'Large'
               cssClass: 'my-class-size-large'
-            '':
-              label: 'unset color'
-              cssClass: null
 ```
 Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
+
+_Note: Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend.
+ The select boxes of this package contain an "x" button for resetting the value._
 
 Activate the preset for your inline editable NodeType property:
 ```
