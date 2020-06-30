@@ -27,6 +27,20 @@
 #            '':
 #              label: 'unset size'
 #              cssClass: null
+#    BlockStyles:
+#      presets:
+#        'indent':
+#          label: 'Indentation'
+#          options:
+#            'primary':
+#              label: '2 rem'
+#              cssClass: 'indent-2'
+#            'secondary':
+#              label: '4 rem'
+#              cssClass: 'indent-4'
+#            '':
+#              label: 'remove indent'
+#              cssClass: null
 
 Neos:
   Neos:

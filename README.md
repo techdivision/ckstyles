@@ -1,7 +1,8 @@
 # TechDivision.CkStyles
 
-This package allows to add different styles(with your own classes) for the CkEditor in Neos. The styles and classes
-depend on your implementation.
+This package allows to add different styles based on your css-classes for the CkEditor in Neos.  
+You can define the classes in you yaml configuration.  
+Styles can be applied both on block- and element level.
 
 
 **Demo:**
@@ -13,7 +14,7 @@ depend on your implementation.
 ![Example output](Documentation/assets/ExampleOutput.png "Example output")
 
 ```html
-<p>
+<p class="my-class-indent-2">
   This is an 
   <span class="my-class-size-large">awesome</span> 
   inline editable 
@@ -22,7 +23,10 @@ depend on your implementation.
 </p>
 ```
 
-But why? Often customers want to highlight some text for example with font size but don't use a headline for SEO reasons
+## Benefits 
+
+In most projects there are requirements that you cannot achieve with tags alone and you need classes under editorial control - 
+e.g. if you want to highlight some text with font size but don't use a headline for SEO reasons
 or want to add an icon, adjust the font color ... 
 
 ## Getting started
@@ -56,6 +60,20 @@ TechDivision:
             'big':
               label: 'Large'
               cssClass: 'my-class-size-large'
+    BlockStyles:
+      presets:
+        'indent':
+          label: 'Indentation'
+          options:
+            'primary':
+              label: '2 rem'
+              cssClass: 'my-class-indent-2'
+            'secondary':
+              label: '4 rem'
+              cssClass: 'my-class-indent-4'
+            '':
+              label: 'remove indent'
+              cssClass: null
 ```
 Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 
@@ -74,6 +92,8 @@ Activate the preset for your inline editable NodeType property:
             inlineStyling:
               fontColor: true
               fontSize: true
+            blockStyling:
+              indent: true
 ```
 Example: [Configuration/NodeTypes.Override.BaseMixins.yaml](Configuration/NodeTypes.Override.BaseMixins.yaml)
 
@@ -91,6 +111,13 @@ Add the styling for your presets in your scss, less or css:
 .my-class-size-large {
   font-size: 25px;
 }
+.my-class-indent-2 {
+  text-indent: 2rem;
+}
+.my-class-indent-4 {
+  text-indent: 4rem;
+}
+
 ```
 
 ## Development 

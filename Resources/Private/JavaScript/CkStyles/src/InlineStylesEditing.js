@@ -1,5 +1,3 @@
-// instead of the following line, we have to import from 'ckeditor5-exports'.
-//import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import { Plugin } from 'ckeditor5-exports';
 import InlineStylesCommand from './InlineStylesCommand';
 
@@ -10,12 +8,15 @@ import InlineStylesCommand from './InlineStylesCommand';
 export default (presetIdentifier, presetConfiguration) =>
     class InlineStylesEditing extends Plugin {
         init() {
-            this.editor.model.schema.extend('$text', { allowAttributes: presetIdentifier });
+            this.editor.model.schema.extend(
+                '$text', 
+                { allowAttributes: `inlineStyles:${presetIdentifier}` }
+            );
 
             // Model configuration
             const config = {
                 model: {
-                    key: presetIdentifier,
+                    key: `inlineStyles:${presetIdentifier}`,
                     values: Object.keys(presetConfiguration.options),
                 },
                 view: {}
@@ -32,6 +33,6 @@ export default (presetIdentifier, presetConfiguration) =>
             // Convert the model to view correctly
             this.editor.conversion.attributeToElement(config);
 
-            this.editor.commands.add(`inlineStyles:${presetIdentifier}`, new InlineStylesCommand(this.editor, presetIdentifier));
+            this.editor.commands.add(`inlineStyles:${presetIdentifier}`, new InlineStylesCommand(this.editor, `inlineStyles:${presetIdentifier}`));
         }
     }
