@@ -78,7 +78,9 @@ TechDivision:
 Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 
 _Note: Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend.
- The select boxes of this package contain an "x" button for resetting the value._
+ The select boxes of this package contain an "x" button for resetting the value._  
+_BlockStyles cannot be combined at the moment. Other than InlineStyles, you can only set one blockstyle per block._
+
 
 Activate the preset for your inline editable NodeType property:
 ```

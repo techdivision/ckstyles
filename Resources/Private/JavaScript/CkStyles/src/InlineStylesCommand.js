@@ -1,4 +1,4 @@
-// Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5-basic-styles/ccf591b0cea61ffd65a5ffaab48272e8dc0d5e6e/src/attributecommand.js and adjusted
+// Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
 import { Command } from 'ckeditor5-exports';
 
 /**
