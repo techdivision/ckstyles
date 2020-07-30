@@ -54,10 +54,7 @@ export default class BlockStyleSelector extends PureComponent {
     handleOnSelect(optionIdentifier) {
         CkEditorApi.executeCommand(
             `blockStyles:${this.props.presetIdentifier}`,
-            {
-                key: this.props.presetIdentifier,
-                value: optionIdentifier
-            }
+            { value: optionIdentifier }
         );
     }
 }

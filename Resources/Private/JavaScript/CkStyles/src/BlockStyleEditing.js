@@ -7,40 +7,32 @@ import BlockStyleCommand from "./BlockStyleCommand";
  */
 export default (presetIdentifier, presetConfiguration) =>
     class BlockStyleEditing extends Plugin {
-
         init() {
-            this.editor.model.schema.extend('$block', {allowAttributes: presetIdentifier});
-
-            const editor = this.editor;
+            this.editor.model.schema.extend(
+                '$block',
+                { allowAttributes: `blockStyles:${presetIdentifier}`}
+            );
 
             // Model configuration
-            var model = {
-                key: presetIdentifier,
-                values: []
+            const config = {
+                model: {
+                    key: `blockStyles:${presetIdentifier}`,
+                    values: Object.keys(presetConfiguration.options),
+                },
+                view: {}
             };
 
             // View configuration
-            var view = {};
             Object.keys(presetConfiguration.options).forEach(optionIdentifier => {
-                model.values.push(optionIdentifier);
-                view[optionIdentifier] = {
+                config.view[optionIdentifier] = {
                     key: 'class',
                     value: presetConfiguration.options[optionIdentifier].cssClass
-                };
-            });
-
-            editor.model.schema.register(presetIdentifier, {
-                inheritAllFrom: '$block',
-                isBlock: true,
-                allowIn: '$root'
+                }
             });
 
             // Convert the model to view correctly
-            editor.conversion.attributeToAttribute({
-                model: model,
-                view: view
-            });
+            this.editor.conversion.attributeToAttribute(config);
 
-            editor.commands.add(`blockStyles:${presetIdentifier}`, new BlockStyleCommand(editor));
+            this.editor.commands.add(`blockStyles:${presetIdentifier}`, new BlockStyleCommand(this.editor, `blockStyles:${presetIdentifier}`));
         }
     }

@@ -8,3 +8,5 @@
 #            inlineStyling:
 #              fontColor: true
 #              fontSize: true
+#            blockStyling:
+#              indent: true
