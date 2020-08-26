@@ -32,12 +32,14 @@ or want to add an icon, adjust the font color ...
 ## Getting started
 
 Default composer installation
-```
+
+```shell
 composer require techdivision/ckstyles
 ```
 
 Define some global presets for usage in different NodeTypes:
-```
+
+```yaml
 TechDivision:
   CkStyles:
     InlineStyles:
@@ -75,6 +77,7 @@ TechDivision:
               label: 'remove indent'
               cssClass: null
 ```
+
 Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 
 _Note: Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend.
@@ -83,7 +86,8 @@ _BlockStyles cannot be combined at the moment. Other than InlineStyles, you can 
 
 
 Activate the preset for your inline editable NodeType property:
-```
+
+```yaml
 'Neos.NodeTypes.BaseMixins:TextMixin':
   abstract: true
   properties:
@@ -97,10 +101,12 @@ Activate the preset for your inline editable NodeType property:
             blockStyling:
               indent: true
 ```
+
 Example: [Configuration/NodeTypes.Override.BaseMixins.yaml](Configuration/NodeTypes.Override.BaseMixins.yaml)
 
 Add the styling for your presets in your scss, less or css:
-```
+
+```css
 .my-class-red {
   color: red;
 }
@@ -127,17 +133,19 @@ This project works with yarn. The build process given by the neos developers is 
 configurable, only the target dir for the buildprocess is adjustable by 
 package.json.
 
-```
+```shell
 nvm install
 ```
 
 If you don't have [yarn](https://yarnpkg.com/lang/en/docs/install/) already installed: 
-```
+
+```shell
 brew install yarn
 ```
 
 Build the app:
-```
+
+```shell
 ./build.sh
 ```
 
