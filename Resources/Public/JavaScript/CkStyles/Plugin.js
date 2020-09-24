@@ -549,13 +549,13 @@ module.exports = (0, _readFromConsumerApi2.default)('vendor')().React;
 exports.__esModule = true;
 var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 var positionalArraySorter = function positionalArraySorter(subject, position, idKey) {
+    var e_1, _a, e_2, _b, e_3, _c, e_4, _d, e_5, _e, e_6, _f, e_7, _g;
     if (position === void 0) {
         position = 'position';
     }
     if (idKey === void 0) {
         idKey = 'key';
     }
-    var e_1, _a, e_2, _b, e_3, _c, e_4, _d, e_5, _e, e_6, _f, e_7, _g;
     var positionAccessor = typeof position === 'string' ? function (value) {
         return value[position];
     } : position;
@@ -734,7 +734,7 @@ var positionalArraySorter = function positionalArraySorter(subject, position, id
                 continue;
             }
             try {
-                for (var _r = tslib_1.__values(sortedWeights(beforeKeys[key], false)), _s = _r.next(); !_s.done; _s = _r.next()) {
+                for (var _r = (e_5 = void 0, tslib_1.__values(sortedWeights(beforeKeys[key], false))), _s = _r.next(); !_s.done; _s = _r.next()) {
                     var i = _s.value;
                     addToResults(beforeKeys[key][i], resultStart);
                 }
@@ -764,7 +764,7 @@ var positionalArraySorter = function positionalArraySorter(subject, position, id
                 continue;
             }
             try {
-                for (var _v = tslib_1.__values(sortedWeights(afterKeys[key], false)), _w = _v.next(); !_w.done; _w = _v.next()) {
+                for (var _v = (e_7 = void 0, tslib_1.__values(sortedWeights(afterKeys[key], false))), _w = _v.next(); !_w.done; _w = _v.next()) {
                     var i = _w.value;
                     addToResults(afterKeys[key][i], resultMiddle);
                 }
@@ -1308,12 +1308,12 @@ exports.default = function (presetIdentifier, presetConfiguration) {
         _createClass(BlockStyleEditing, [{
             key: 'init',
             value: function init() {
-                this.editor.model.schema.extend('$block', { allowAttributes: 'blockStyles:' + presetIdentifier });
+                this.editor.model.schema.extend('$block', { allowAttributes: 'blockStyles-' + presetIdentifier });
 
                 // Model configuration
                 var config = {
                     model: {
-                        key: 'blockStyles:' + presetIdentifier,
+                        key: 'blockStyles-' + presetIdentifier,
                         values: Object.keys(presetConfiguration.options)
                     },
                     view: {}
@@ -1330,7 +1330,7 @@ exports.default = function (presetIdentifier, presetConfiguration) {
                 // Convert the model to view correctly
                 this.editor.conversion.attributeToAttribute(config);
 
-                this.editor.commands.add('blockStyles:' + presetIdentifier, new _BlockStyleCommand2.default(this.editor, 'blockStyles:' + presetIdentifier));
+                this.editor.commands.add('blockStyles:' + presetIdentifier, new _BlockStyleCommand2.default(this.editor, 'blockStyles-' + presetIdentifier));
             }
         }]);
 
@@ -1363,7 +1363,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5-basic-styles/ccf591b0cea61ffd65a5ffaab48272e8dc0d5e6e/src/attributecommand.js and adjusted
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
 
 
 /**
@@ -1606,12 +1606,12 @@ exports.default = function (presetIdentifier, presetConfiguration) {
         _createClass(InlineStylesEditing, [{
             key: 'init',
             value: function init() {
-                this.editor.model.schema.extend('$text', { allowAttributes: 'inlineStyles:' + presetIdentifier });
+                this.editor.model.schema.extend('$text', { allowAttributes: 'inlineStyles-' + presetIdentifier });
 
                 // Model configuration
                 var config = {
                     model: {
-                        key: 'inlineStyles:' + presetIdentifier,
+                        key: 'inlineStyles-' + presetIdentifier,
                         values: Object.keys(presetConfiguration.options)
                     },
                     view: {}
@@ -1628,7 +1628,7 @@ exports.default = function (presetIdentifier, presetConfiguration) {
                 // Convert the model to view correctly
                 this.editor.conversion.attributeToElement(config);
 
-                this.editor.commands.add('inlineStyles:' + presetIdentifier, new _InlineStylesCommand2.default(this.editor, 'inlineStyles:' + presetIdentifier));
+                this.editor.commands.add('inlineStyles:' + presetIdentifier, new _InlineStylesCommand2.default(this.editor, 'inlineStyles-' + presetIdentifier));
             }
         }]);
 
