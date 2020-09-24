@@ -10,13 +10,13 @@ export default (presetIdentifier, presetConfiguration) =>
         init() {
             this.editor.model.schema.extend(
                 '$text', 
-                { allowAttributes: `inlineStyles:${presetIdentifier}` }
+                { allowAttributes: `inlineStyles-${presetIdentifier}` }
             );
 
             // Model configuration
             const config = {
                 model: {
-                    key: `inlineStyles:${presetIdentifier}`,
+                    key: `inlineStyles-${presetIdentifier}`,
                     values: Object.keys(presetConfiguration.options),
                 },
                 view: {}
@@ -33,6 +33,6 @@ export default (presetIdentifier, presetConfiguration) =>
             // Convert the model to view correctly
             this.editor.conversion.attributeToElement(config);
 
-            this.editor.commands.add(`inlineStyles:${presetIdentifier}`, new InlineStylesCommand(this.editor, `inlineStyles:${presetIdentifier}`));
+            this.editor.commands.add(`inlineStyles:${presetIdentifier}`, new InlineStylesCommand(this.editor, `inlineStyles-${presetIdentifier}`));
         }
     }
