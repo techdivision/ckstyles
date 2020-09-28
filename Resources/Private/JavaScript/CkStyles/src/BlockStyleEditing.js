@@ -10,13 +10,13 @@ export default (presetIdentifier, presetConfiguration) =>
         init() {
             this.editor.model.schema.extend(
                 '$block',
-                { allowAttributes: `blockStyles:${presetIdentifier}`}
+                { allowAttributes: `blockStyles-${presetIdentifier}`}
             );
 
             // Model configuration
             const config = {
                 model: {
-                    key: `blockStyles:${presetIdentifier}`,
+                    key: `blockStyles-${presetIdentifier}`,
                     values: Object.keys(presetConfiguration.options),
                 },
                 view: {}
@@ -33,6 +33,6 @@ export default (presetIdentifier, presetConfiguration) =>
             // Convert the model to view correctly
             this.editor.conversion.attributeToAttribute(config);
 
-            this.editor.commands.add(`blockStyles:${presetIdentifier}`, new BlockStyleCommand(this.editor, `blockStyles:${presetIdentifier}`));
+            this.editor.commands.add(`blockStyles:${presetIdentifier}`, new BlockStyleCommand(this.editor, `blockStyles-${presetIdentifier}`));
         }
     }
