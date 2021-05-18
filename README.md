@@ -80,7 +80,7 @@ Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 
 **What values are allowed for cssClass?**
 - **Not null** Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend. The select boxes of this package contain an "x" button for resetting the value.
-- **No whitespace** Using multiple classes seperated by whitespaces (e.g. cssClass: 'btn btn-primary') causes problems when the saved text gets loaded (classes are removed).
+- You can add **multiple classes** by separating them with a whitespace. e.g. "btn btn-primary"
 
 **Activate the preset for your inline editable NodeType property:**
 

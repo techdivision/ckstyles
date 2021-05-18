@@ -1321,9 +1321,12 @@ exports.default = function (presetIdentifier, presetConfiguration) {
 
                 // View configuration
                 Object.keys(presetConfiguration.options).forEach(function (optionIdentifier) {
+
+                    var classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
+
                     config.view[optionIdentifier] = {
                         key: 'class',
-                        value: presetConfiguration.options[optionIdentifier].cssClass
+                        value: classes
                     };
                 });
 
@@ -1619,9 +1622,12 @@ exports.default = function (presetIdentifier, presetConfiguration) {
 
                 // View configuration
                 Object.keys(presetConfiguration.options).forEach(function (optionIdentifier) {
+
+                    var classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
+
                     config.view[optionIdentifier] = {
                         name: 'span',
-                        classes: presetConfiguration.options[optionIdentifier].cssClass
+                        classes: classes
                     };
                 });
 
