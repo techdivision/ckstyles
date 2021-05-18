@@ -31,13 +31,13 @@ or want to add an icon, adjust the font color ...
 
 ## Getting started
 
-Default composer installation
+**Default composer installation**
 
 ```shell
 composer require techdivision/ckstyles
 ```
 
-Define some global presets for usage in different NodeTypes:
+**Define some global presets for usage in different NodeTypes:**
 
 ```yaml
 TechDivision:
@@ -73,17 +73,16 @@ TechDivision:
             'secondary':
               label: '4 rem'
               cssClass: 'my-class-indent-4'
-            '':
-              label: 'remove indent'
-              cssClass: null
 ```
 
 Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 
-_Note: Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend.
- The select boxes of this package contain an "x" button for resetting the value._  
 
-Activate the preset for your inline editable NodeType property:
+**What values are allowed for cssClass?**
+- **Not null** Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend. The select boxes of this package contain an "x" button for resetting the value.
+- **No whitespace** Using multiple classes seperated by whitespaces (e.g. cssClass: 'btn btn-primary') causes problems when the saved text gets loaded (classes are removed).
+
+**Activate the preset for your inline editable NodeType property:**
 
 ```yaml
 'Neos.NodeTypes.BaseMixins:TextMixin':
@@ -102,7 +101,7 @@ Activate the preset for your inline editable NodeType property:
 
 Example: [Configuration/NodeTypes.Override.BaseMixins.yaml](Configuration/NodeTypes.Override.BaseMixins.yaml)
 
-Add the styling for your presets in your scss, less or css:
+**Add the styling for your presets in your scss, less or css:**
 
 ```css
 .my-class-red {
