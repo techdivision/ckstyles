@@ -24,9 +24,12 @@ export default (presetIdentifier, presetConfiguration) =>
 
             // View configuration
             Object.keys(presetConfiguration.options).forEach(optionIdentifier => {
+
+                const classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
+
                 config.view[optionIdentifier] = {
                     key: 'class',
-                    value: presetConfiguration.options[optionIdentifier].cssClass
+                    value: classes
                 }
             });
 
