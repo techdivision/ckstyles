@@ -25,7 +25,7 @@ export default (presetIdentifier, presetConfiguration) =>
             // View configuration
             Object.keys(presetConfiguration.options).forEach(optionIdentifier => {
 
-                const classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
+                let classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
 
                 config.view[optionIdentifier] = {
                     name: 'span',
