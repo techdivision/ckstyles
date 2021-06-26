@@ -1310,6 +1310,9 @@ exports.default = function (presetIdentifier, presetConfiguration) {
             value: function init() {
                 this.editor.model.schema.extend('$block', { allowAttributes: 'blockStyles-' + presetIdentifier });
 
+                // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
+                this.editor.model.schema.setAttributeProperties('blockStyles-' + presetIdentifier, { isFormatting: true });
+
                 // Model configuration
                 var config = {
                     model: {
@@ -1610,6 +1613,9 @@ exports.default = function (presetIdentifier, presetConfiguration) {
             key: 'init',
             value: function init() {
                 this.editor.model.schema.extend('$text', { allowAttributes: 'inlineStyles-' + presetIdentifier });
+
+                // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
+                this.editor.model.schema.setAttributeProperties('inlineStyles-' + presetIdentifier, { isFormatting: true });
 
                 // Model configuration
                 var config = {
