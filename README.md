@@ -147,6 +147,9 @@ Build the app:
 ./build.sh
 ```
 
+## Konwn issues
+- **autoparagraph** If the autoparagraph editorOption is inactive (as e.g. for the Headline content element of the Neos demo project) inline styles are not displayed correctly in the Neos backend.
+
 ## Contribute
 
 You are very welcome to contribute by merge requests, adding issues etc.
