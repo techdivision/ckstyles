@@ -13,6 +13,12 @@ export default (presetIdentifier, presetConfiguration) =>
                 { allowAttributes: `blockStyles-${presetIdentifier}`}
             );
 
+            // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
+            this.editor.model.schema.setAttributeProperties(
+                `blockStyles-${presetIdentifier}`,
+                { isFormatting: true }
+            );
+
             // Model configuration
             const config = {
                 model: {
