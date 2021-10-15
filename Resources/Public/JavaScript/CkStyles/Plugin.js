@@ -1629,11 +1629,11 @@ exports.default = function (presetIdentifier, presetConfiguration) {
                 // View configuration
                 Object.keys(presetConfiguration.options).forEach(function (optionIdentifier) {
 
-                    var classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
+                    var classes = presetConfiguration.options[optionIdentifier].cssClass;
 
                     config.view[optionIdentifier] = {
                         name: 'span',
-                        classes: classes
+                        attributes: { 'class': classes }
                     };
                 });
 

@@ -31,11 +31,11 @@ export default (presetIdentifier, presetConfiguration) =>
             // View configuration
             Object.keys(presetConfiguration.options).forEach(optionIdentifier => {
 
-                const classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
+                const classes = presetConfiguration.options[optionIdentifier].cssClass;
 
                 config.view[optionIdentifier] = {
                     name: 'span',
-                    classes: classes
+                    attributes: { 'class': classes }
                 }
             });
 

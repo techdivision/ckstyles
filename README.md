@@ -81,6 +81,7 @@ Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 **What values are allowed for cssClass?**
 - **Not null** Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend. The select boxes of this package contain an "x" button for resetting the value.
 - You can add **multiple classes** by separating them with a whitespace. e.g. "btn btn-primary"
+-- *Caution* There is a known issue for block styles when using two options when one contains the other. e.g. "color-red" and "color-red bold". Please try to avoid this for block styles. 
 
 **Activate the preset for your inline editable NodeType property:**
 
@@ -145,6 +146,9 @@ Build the app:
 ```shell
 ./build.sh
 ```
+
+## Konwn issues
+- **autoparagraph** If the autoparagraph editorOption is inactive (as e.g. for the Headline content element of the Neos demo project) inline styles are not displayed correctly in the Neos backend.
 
 ## Contribute
 
