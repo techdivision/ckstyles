@@ -73,6 +73,6 @@ manifest('TechDivision.CkStyles:Styles', {}, (globalRegistry, {frontendConfigura
                 presetIdentifier: presetIdentifier,
                 presetConfiguration: inlineStylePresetConfiguration
             });
-        })
+        });
     }
 });

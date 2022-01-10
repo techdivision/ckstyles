@@ -30,13 +30,14 @@ export default (presetIdentifier, presetConfiguration) =>
 
             // View configuration
             Object.keys(presetConfiguration.options).forEach(optionIdentifier => {
-
-                const classes = presetConfiguration.options[optionIdentifier].cssClass.split(' ');
+                const options = presetConfiguration.options[optionIdentifier];
+                const attribute = options.attribute || 'class';
+                const attributeValues = (options.attributeValue || options.cssClass).split(' ');
 
                 config.view[optionIdentifier] = {
-                    key: 'class',
-                    value: classes
-                }
+                    key: attribute,
+                    value: attributeValues,
+                };
             });
 
             // Convert the model to view correctly
@@ -44,4 +45,4 @@ export default (presetIdentifier, presetConfiguration) =>
 
             this.editor.commands.add(`blockStyles:${presetIdentifier}`, new BlockStyleCommand(this.editor, `blockStyles-${presetIdentifier}`));
         }
-    }
+    };

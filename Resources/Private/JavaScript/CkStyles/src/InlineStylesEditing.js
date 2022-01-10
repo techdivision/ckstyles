@@ -30,12 +30,13 @@ export default (presetIdentifier, presetConfiguration) =>
 
             // View configuration
             Object.keys(presetConfiguration.options).forEach(optionIdentifier => {
-
-                const classes = presetConfiguration.options[optionIdentifier].cssClass;
+                const options = presetConfiguration.options[optionIdentifier];
+                const { attribute } = options;
+                const classes = options.attributeValue || options.cssClass;
 
                 config.view[optionIdentifier] = {
                     name: 'span',
-                    attributes: { 'class': classes }
+                    attributes: { [attribute]: classes }
                 }
             });
 
@@ -44,4 +45,4 @@ export default (presetIdentifier, presetConfiguration) =>
 
             this.editor.commands.add(`inlineStyles:${presetIdentifier}`, new InlineStylesCommand(this.editor, `inlineStyles-${presetIdentifier}`));
         }
-    }
+    };
