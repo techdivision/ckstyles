@@ -30,12 +30,13 @@ export default (presetIdentifier, presetConfiguration) =>
 
             // View configuration
             Object.keys(presetConfiguration.options).forEach(optionIdentifier => {
-
-                const classes = presetConfiguration.options[optionIdentifier].cssClass;
+                const option = presetConfiguration.options[optionIdentifier];
+                // split the cssClass configuration to allow for multiple classes
+                const classes = option.cssClass.split(' ');
 
                 config.view[optionIdentifier] = {
                     name: 'span',
-                    attributes: { 'class': classes }
+                    classes: classes
                 }
             });
 
