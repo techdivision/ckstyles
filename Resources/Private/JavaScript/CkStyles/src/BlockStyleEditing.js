@@ -14,13 +14,13 @@ export default (presetIdentifier, presetConfiguration) =>
 
             schema.extend(
                 '$block',
-                { allowAttributes: modelAttributeKey}
+                {allowAttributes: modelAttributeKey}
             );
 
             // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
             schema.setAttributeProperties(
                 modelAttributeKey,
-                { isFormatting: true }
+                {isFormatting: true}
             );
 
             // Model configuration

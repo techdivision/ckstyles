@@ -1,5 +1,5 @@
 // Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
-import { Command } from 'ckeditor5-exports';
+import {Command} from 'ckeditor5-exports';
 
 /**
  * Set a key-value inline style; e.g. "fontColor=red".

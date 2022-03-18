@@ -17,7 +17,7 @@ manifest('TechDivision.CkStyles:Styles', {}, (globalRegistry, {frontendConfigura
     const blockStyleConfiguration = frontendConfiguration['TechDivision.CkStyles:BlockStyles'];
 
     // Block style
-    if(blockStyleConfiguration) {
+    if (blockStyleConfiguration) {
 
         Object.keys(blockStyleConfiguration.presets).forEach(presetIdentifier => {
 
@@ -33,9 +33,9 @@ manifest('TechDivision.CkStyles:Styles', {}, (globalRegistry, {frontendConfigura
             richtextToolbar.set(`blockStyles_${presetIdentifier}`, {
                 component: BlockStyleSelector,
                 // Display only if the preset is activated in NodeType.yaml for this node property
-                isVisible: function(editorOptions, formattingUnderCursor) {
+                isVisible: function (editorOptions, formattingUnderCursor) {
                     var isVisible = false;
-                    if(editorOptions['blockStyling'] !== undefined && editorOptions['blockStyling'][presetIdentifier] !== undefined) {
+                    if (editorOptions['blockStyling'] !== undefined && editorOptions['blockStyling'][presetIdentifier] !== undefined) {
                         isVisible = editorOptions['blockStyling'][presetIdentifier];
                     }
                     return isVisible;
@@ -48,7 +48,7 @@ manifest('TechDivision.CkStyles:Styles', {}, (globalRegistry, {frontendConfigura
     }
 
     //Inline Style
-    if(inlineStyleConfiguration) {
+    if (inlineStyleConfiguration) {
 
         Object.keys(inlineStyleConfiguration.presets).forEach((presetIdentifier) => {
 
@@ -63,9 +63,9 @@ manifest('TechDivision.CkStyles:Styles', {}, (globalRegistry, {frontendConfigura
             richtextToolbar.set(`inlineStyles_${presetIdentifier}`, {
                 component: InlineStyleSelector,
                 // Display only if the preset is activated in NodeType.yaml for this node property
-                isVisible: function(editorOptions, formattingUnderCursor) {
+                isVisible: function (editorOptions, formattingUnderCursor) {
                     var isVisible = false;
-                    if(editorOptions['inlineStyling'] !== undefined && editorOptions['inlineStyling'][presetIdentifier] !== undefined) {
+                    if (editorOptions['inlineStyling'] !== undefined && editorOptions['inlineStyling'][presetIdentifier] !== undefined) {
                         isVisible = editorOptions['inlineStyling'][presetIdentifier];
                     }
                     return isVisible;

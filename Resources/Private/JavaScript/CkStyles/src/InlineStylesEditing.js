@@ -1,4 +1,4 @@
-import { Plugin } from 'ckeditor5-exports';
+import {Plugin} from 'ckeditor5-exports';
 import InlineStylesCommand from './InlineStylesCommand';
 
 /**
@@ -34,13 +34,13 @@ export default (presetIdentifier, presetConfiguration) =>
 
             // View configuration
             optionIdentifiers.forEach(optionIdentifier => {
-                const option = presetConfiguration.options[optionIdentifier];
-                // split the cssClass configuration to allow for multiple classes
-                const classes = option.cssClass.split(' ');
+                const options = presetConfiguration.options[optionIdentifier];
+                const {attribute} = options;
+                const classes = options.attributeValue || options.cssClass;
 
                 config.view[optionIdentifier] = {
                     name: 'span',
-                    classes: classes,
+                    attributes: {[attribute]: classes}
                 }
             });
 

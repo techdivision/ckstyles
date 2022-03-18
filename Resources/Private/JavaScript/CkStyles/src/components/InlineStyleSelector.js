@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { SelectBox } from '@neos-project/react-ui-components';
+import {SelectBox} from '@neos-project/react-ui-components';
 import {connect} from 'react-redux';
 import {$transform} from 'plow-js';
 import PresetType from '../PresetType';
@@ -54,7 +54,7 @@ export default class InlineStyleSelector extends PureComponent {
     handleOnSelect(optionIdentifier) {
         CkEditorApi.executeCommand(
             `inlineStyles:${this.props.presetIdentifier}`,
-            { value: optionIdentifier }
+            {value: optionIdentifier}
         );
     }
 }
