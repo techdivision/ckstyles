@@ -1308,25 +1308,29 @@ exports.default = function (presetIdentifier, presetConfiguration) {
         _createClass(BlockStyleEditing, [{
             key: 'init',
             value: function init() {
-                this.editor.model.schema.extend('$block', { allowAttributes: 'blockStyles-' + presetIdentifier });
+                var schema = this.editor.model.schema;
+                var modelAttributeKey = 'blockStyles-' + presetIdentifier;
+                var optionIdentifiers = Object.keys(presetConfiguration.options);
+
+                schema.extend('$block', { allowAttributes: modelAttributeKey });
 
                 // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-                this.editor.model.schema.setAttributeProperties('blockStyles-' + presetIdentifier, { isFormatting: true });
+                schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
 
                 // Model configuration
                 var config = {
                     model: {
-                        key: 'blockStyles-' + presetIdentifier,
-                        values: Object.keys(presetConfiguration.options)
+                        key: modelAttributeKey,
+                        values: optionIdentifiers
                     },
                     view: {}
                 };
 
                 // View configuration
-                Object.keys(presetConfiguration.options).forEach(function (optionIdentifier) {
-                    var options = presetConfiguration.options[optionIdentifier];
-                    var attribute = options.attribute || 'class';
-                    var attributeValues = (options.attributeValue || options.cssClass).split(' ');
+                optionIdentifiers.forEach(function (optionIdentifier) {
+                    var option = presetConfiguration.options[optionIdentifier];
+                    var attribute = option.attribute || 'class';
+                    var attributeValues = (option.attributeValue || option.cssClass).split(' ');
 
                     config.view[optionIdentifier] = {
                         key: attribute,
@@ -1337,7 +1341,7 @@ exports.default = function (presetIdentifier, presetConfiguration) {
                 // Convert the model to view correctly
                 this.editor.conversion.attributeToAttribute(config);
 
-                this.editor.commands.add('blockStyles:' + presetIdentifier, new _BlockStyleCommand2.default(this.editor, 'blockStyles-' + presetIdentifier));
+                this.editor.commands.add('blockStyles:' + presetIdentifier, new _BlockStyleCommand2.default(this.editor, modelAttributeKey));
             }
         }]);
 
@@ -1590,8 +1594,6 @@ var _InlineStylesCommand2 = _interopRequireDefault(_InlineStylesCommand);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1615,37 +1617,40 @@ exports.default = function (presetIdentifier, presetConfiguration) {
         _createClass(InlineStylesEditing, [{
             key: 'init',
             value: function init() {
-                this.editor.model.schema.extend('$text', { allowAttributes: 'inlineStyles-' + presetIdentifier });
+                var schema = this.editor.model.schema;
+                var optionIdentifiers = Object.keys(presetConfiguration.options);
+                var modelAttributeKey = 'inlineStyles-' + presetIdentifier;
+
+                schema.extend('$text', { allowAttributes: modelAttributeKey });
 
                 // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-                this.editor.model.schema.setAttributeProperties('inlineStyles-' + presetIdentifier, { isFormatting: true });
+                schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
 
                 // Model configuration
                 var config = {
                     model: {
-                        key: 'inlineStyles-' + presetIdentifier,
-                        values: Object.keys(presetConfiguration.options)
+                        key: modelAttributeKey,
+                        values: optionIdentifiers
                     },
                     view: {}
                 };
 
                 // View configuration
-                Object.keys(presetConfiguration.options).forEach(function (optionIdentifier) {
-                    var options = presetConfiguration.options[optionIdentifier];
-                    var attribute = options.attribute;
-
-                    var classes = options.attributeValue || options.cssClass;
+                optionIdentifiers.forEach(function (optionIdentifier) {
+                    var option = presetConfiguration.options[optionIdentifier];
+                    // split the cssClass configuration to allow for multiple classes
+                    var classes = option.cssClass.split(' ');
 
                     config.view[optionIdentifier] = {
                         name: 'span',
-                        attributes: _defineProperty({}, attribute, classes)
+                        classes: classes
                     };
                 });
 
                 // Convert the model to view correctly
                 this.editor.conversion.attributeToElement(config);
 
-                this.editor.commands.add('inlineStyles:' + presetIdentifier, new _InlineStylesCommand2.default(this.editor, 'inlineStyles-' + presetIdentifier));
+                this.editor.commands.add('inlineStyles:' + presetIdentifier, new _InlineStylesCommand2.default(this.editor, modelAttributeKey));
             }
         }]);
 

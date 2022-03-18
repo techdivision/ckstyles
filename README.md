@@ -1,13 +1,14 @@
 # TechDivision.CkStyles
 
-This package allows to add different styles based on your css-classes for the CkEditor in Neos.
-You can define the classes in you yaml configuration.
+This package allows you to add different styles based on your css-classes for the CkEditor in Neos.  
+You can define the classes in you yaml configuration.  
 Styles can be applied both on block- and element level.
 
 It is also possible to set a different attribute (for usage with placeholders for example).
 
 
 **Demo:**
+
 ![Applying inline style](Documentation/assets/InlineStyleDemo.gif "Inline style")
 
 
@@ -17,30 +18,31 @@ It is also possible to set a different attribute (for usage with placeholders fo
 
 ```html
 <p class="my-class-indent-2">
-  This is an
-  <span class="my-class-size-large">awesome</span>
-  inline editable
-  <span class="my-class-red">text with some custom</span>
+  This is an 
+  <span class="my-class-size-large">awesome</span> 
+  inline editable 
+  <span class="my-class-red">text with some custom</span> 
   styling :)
 </p>
 ```
 
-## Benefits
+## Benefits/Purpose 
 
-In most projects there are requirements that you cannot achieve with tags alone and you need classes under editorial control -
+In most projects there are requirements that you cannot achieve with tags alone, and you need classes under editorial control - 
 e.g. if you want to highlight some text with font size but don't use a headline for SEO reasons
-or want to add an icon, adjust the font color ...
+or want to add an icon, adjust the font color, ... 
 Or you want to add data-attributes to an element for use in combination with js ...
+
 
 ## Getting started
 
-**Default composer installation**
+### 1. Default composer installation
 
 ```shell
 composer require techdivision/ckstyles
 ```
 
-**Define some global presets for usage in different NodeTypes:**
+### 2. Define some global presets for usage in different NodeTypes
 
 ```yaml
 TechDivision:
@@ -97,10 +99,9 @@ Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 
 **What values are allowed for `cssClass` and/or `attributeValue`?**
 - **Not null** Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend. The select boxes of this package contain an "x" button for resetting the value.
-- You can add **multiple classes** by separating them with a whitespace. e.g. "btn btn-primary"
--- *Caution* There is a known issue for block styles when using two options when one contains the other. e.g. "color-red" and "color-red bold". Please try to avoid this for block styles.
+- Although you can add **multiple classes** by separating them with a whitespace. e.g. `btn btn-primary`, it is **highly recommended** to use only **one and unique** class across all Inline- or BlockStyles. See [known issues](#konwn-issues) for more details.
 
-**Activate the preset for your inline editable NodeType property:**
+### 3. Activate the preset for your inline editable NodeType property:
 
 ```yaml
 'Neos.NodeTypes.BaseMixins:TextMixin':
@@ -121,7 +122,7 @@ Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 
 Example: [Configuration/NodeTypes.Override.BaseMixins.yaml](Configuration/NodeTypes.Override.BaseMixins.yaml)
 
-**Add the styling for your presets in your scss, less or css:**
+### 4. Add the styling for your presets in your scss, less or css:
 
 ```css
 .my-class-red {
@@ -142,19 +143,18 @@ Example: [Configuration/NodeTypes.Override.BaseMixins.yaml](Configuration/NodeTy
 .my-class-indent-4 {
   text-indent: 4rem;
 }
-
 ```
 
-## Development
-This project works with yarn. The build process given by the neos developers is not very
-configurable, only the target dir for the buildprocess is adjustable by
+## Development 
+This project works with yarn. The build process given by the Neos developers is not very
+configurable, only the target dir for the build process is adjustable by 
 package.json.
 
 ```shell
 nvm install
 ```
 
-If you don't have [yarn](https://yarnpkg.com/lang/en/docs/install/) already installed:
+If you don't have [yarn](https://yarnpkg.com/lang/en/docs/install/) already installed: 
 
 ```shell
 brew install yarn
@@ -165,13 +165,22 @@ Build the app:
 ```shell
 ./build.sh
 ```
+Start a watcher:
 
-## Konwn issues
+```shell
+./watch.sh
+```
+
+## Known issues
+- **cssClass** 
+  - If you have multiple Inline- or BlockStyles configurations who contain the same class will result in the loss of one of the selected styles (e.g. if you have a InlineStyle which sets the classes `btn btn-primary` and a different InlineStyle which sets the classes `btn btn-rounded`, one of the set styles will be lost if you reopen the backend). **Note:** this doesn't apply to **one InlineStyle** with multiple duplicate classes.
+  - If you have one or multiple Inline- or BlockStyles where one cssClass contains the other, e.g. `btn btn-primary` and `btn` one of them may be lost/not applied
+  - *The above are caused by a bug/the behavior of CkEditor and can't easily be fixed. If you have ideas how to fix this, we would sincerely appreciate your [contribution](#contribute) to this project*
 - **autoparagraph** If the autoparagraph editorOption is inactive (as e.g. for the Headline content element of the Neos demo project) inline styles are not displayed correctly in the Neos backend.
 
 ## Contribute
 
 You are very welcome to contribute by merge requests, adding issues etc.
 
-**Thank you** 🤝 [Sebastian Kurfürst](https://twitter.com/skurfuerst) for the great workshop which helped us
-implementing this.
+**Thank you** 🤝 [Sebastian Kurfürst](https://twitter.com/skurfuerst) for the great workshop which helped us 
+to implement this.

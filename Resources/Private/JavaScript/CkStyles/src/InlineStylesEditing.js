@@ -8,41 +8,45 @@ import InlineStylesCommand from './InlineStylesCommand';
 export default (presetIdentifier, presetConfiguration) =>
     class InlineStylesEditing extends Plugin {
         init() {
-            this.editor.model.schema.extend(
+            const schema = this.editor.model.schema;
+            const optionIdentifiers = Object.keys(presetConfiguration.options);
+            const modelAttributeKey = `inlineStyles-${presetIdentifier}`;
+
+            schema.extend(
                 '$text',
-                { allowAttributes: `inlineStyles-${presetIdentifier}` }
+                {allowAttributes: modelAttributeKey}
             );
 
             // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-            this.editor.model.schema.setAttributeProperties(
-                `inlineStyles-${presetIdentifier}`,
-                { isFormatting: true }
+            schema.setAttributeProperties(
+                modelAttributeKey,
+                {isFormatting: true}
             );
 
             // Model configuration
             const config = {
                 model: {
-                    key: `inlineStyles-${presetIdentifier}`,
-                    values: Object.keys(presetConfiguration.options),
+                    key: modelAttributeKey,
+                    values: optionIdentifiers
                 },
                 view: {}
             };
 
             // View configuration
-            Object.keys(presetConfiguration.options).forEach(optionIdentifier => {
-                const options = presetConfiguration.options[optionIdentifier];
-                const { attribute } = options;
-                const classes = options.attributeValue || options.cssClass;
+            optionIdentifiers.forEach(optionIdentifier => {
+                const option = presetConfiguration.options[optionIdentifier];
+                // split the cssClass configuration to allow for multiple classes
+                const classes = option.cssClass.split(' ');
 
                 config.view[optionIdentifier] = {
                     name: 'span',
-                    attributes: { [attribute]: classes }
+                    classes: classes,
                 }
             });
 
             // Convert the model to view correctly
             this.editor.conversion.attributeToElement(config);
 
-            this.editor.commands.add(`inlineStyles:${presetIdentifier}`, new InlineStylesCommand(this.editor, `inlineStyles-${presetIdentifier}`));
+            this.editor.commands.add(`inlineStyles:${presetIdentifier}`, new InlineStylesCommand(this.editor, modelAttributeKey));
         }
     };

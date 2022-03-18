@@ -8,41 +8,45 @@ import BlockStyleCommand from "./BlockStyleCommand";
 export default (presetIdentifier, presetConfiguration) =>
     class BlockStyleEditing extends Plugin {
         init() {
-            this.editor.model.schema.extend(
+            const schema = this.editor.model.schema;
+            const modelAttributeKey = `blockStyles-${presetIdentifier}`;
+            const optionIdentifiers = Object.keys(presetConfiguration.options);
+
+            schema.extend(
                 '$block',
-                { allowAttributes: `blockStyles-${presetIdentifier}`}
+                { allowAttributes: modelAttributeKey}
             );
 
             // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-            this.editor.model.schema.setAttributeProperties(
-                `blockStyles-${presetIdentifier}`,
+            schema.setAttributeProperties(
+                modelAttributeKey,
                 { isFormatting: true }
             );
 
             // Model configuration
             const config = {
                 model: {
-                    key: `blockStyles-${presetIdentifier}`,
-                    values: Object.keys(presetConfiguration.options),
+                    key: modelAttributeKey,
+                    values: optionIdentifiers,
                 },
                 view: {}
             };
 
             // View configuration
-            Object.keys(presetConfiguration.options).forEach(optionIdentifier => {
-                const options = presetConfiguration.options[optionIdentifier];
-                const attribute = options.attribute || 'class';
-                const attributeValues = (options.attributeValue || options.cssClass).split(' ');
+            optionIdentifiers.forEach(optionIdentifier => {
+                const option = presetConfiguration.options[optionIdentifier];
+                const attribute = option.attribute || 'class';
+                const attributeValues = (option.attributeValue || option.cssClass).split(' ');
 
                 config.view[optionIdentifier] = {
                     key: attribute,
-                    value: attributeValues,
-                };
+                    value: attributeValues
+                }
             });
 
             // Convert the model to view correctly
             this.editor.conversion.attributeToAttribute(config);
 
-            this.editor.commands.add(`blockStyles:${presetIdentifier}`, new BlockStyleCommand(this.editor, `blockStyles-${presetIdentifier}`));
+            this.editor.commands.add(`blockStyles:${presetIdentifier}`, new BlockStyleCommand(this.editor, modelAttributeKey));
         }
     };
