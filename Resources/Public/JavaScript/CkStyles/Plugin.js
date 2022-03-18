@@ -1328,9 +1328,11 @@ exports.default = function (presetIdentifier, presetConfiguration) {
 
                 // View configuration
                 optionIdentifiers.forEach(function (optionIdentifier) {
-                    var option = presetConfiguration.options[optionIdentifier];
-                    var attribute = option.attribute || 'class';
-                    var attributeValues = (option.attributeValue || option.cssClass).split(' ');
+                    var options = presetConfiguration.options[optionIdentifier];
+                    var attribute = options.attribute || 'class';
+                    var attributeValues = attribute === options.attribute ? options.attributeValue : options.cssClass.split(' ');
+
+                    console.log(attributeValues);
 
                     config.view[optionIdentifier] = {
                         key: attribute,

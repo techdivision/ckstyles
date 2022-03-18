@@ -34,9 +34,11 @@ export default (presetIdentifier, presetConfiguration) =>
 
             // View configuration
             optionIdentifiers.forEach(optionIdentifier => {
-                const option = presetConfiguration.options[optionIdentifier];
-                const attribute = option.attribute || 'class';
-                const attributeValues = (option.attributeValue || option.cssClass).split(' ');
+                const options = presetConfiguration.options[optionIdentifier];
+                const attribute = options.attribute || 'class';
+                const attributeValues = (attribute === options.attribute) ? options.attributeValue : (options.cssClass).split(' ');
+
+                console.log(attributeValues);
 
                 config.view[optionIdentifier] = {
                     key: attribute,
