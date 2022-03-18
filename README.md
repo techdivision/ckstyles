@@ -66,8 +66,10 @@ TechDivision:
               label: 'Large'
               cssClass: 'my-class-size-large'
         'dataAttribute':
-            'customValue':
-              label: 'Custom data attribute'
+          label: 'Inline data attribute'
+          options:
+            'data':
+              label: 'Inline data'
               attribute: 'data-attribute'
               attributeValue: 'my-custom-attribute-value'
     BlockStyles:
@@ -81,8 +83,8 @@ TechDivision:
             'secondary':
               label: '4 rem'
               cssClass: 'my-class-indent-4'
-        'data':
-          label: 'Data attribute'
+        'dataAttribute':
+          label: 'Block data attribute'
           options:
             'data':
               label: 'Block data'
@@ -114,7 +116,7 @@ Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
               fontSize: true
             blockStyling:
               indent: true
-              data: true
+              dataAttribute: true
 ```
 
 Example: [Configuration/NodeTypes.Override.BaseMixins.yaml](Configuration/NodeTypes.Override.BaseMixins.yaml)
