@@ -38,8 +38,6 @@ export default (presetIdentifier, presetConfiguration) =>
                 const attribute = options.attribute || 'class';
                 const attributeValues = (attribute === options.attribute) ? options.attributeValue : (options.cssClass).split(' ');
 
-                console.log(attributeValues);
-
                 config.view[optionIdentifier] = {
                     key: attribute,
                     value: attributeValues
