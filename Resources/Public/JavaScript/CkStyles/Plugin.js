@@ -1328,13 +1328,13 @@ exports.default = function (presetIdentifier, presetConfiguration) {
 
                 // View configuration
                 optionIdentifiers.forEach(function (optionIdentifier) {
-                    var option = presetConfiguration.options[optionIdentifier];
-                    // split the cssClass configuration to allow for multiple classes
-                    var classes = option.cssClass.split(' ');
+                    var options = presetConfiguration.options[optionIdentifier];
+                    var attribute = options.attribute || 'class';
+                    var attributeValues = attribute === options.attribute ? options.attributeValue : options.cssClass.split(' ');
 
                     config.view[optionIdentifier] = {
-                        key: 'class',
-                        value: classes
+                        key: attribute,
+                        value: attributeValues
                     };
                 });
 
@@ -1594,6 +1594,8 @@ var _InlineStylesCommand2 = _interopRequireDefault(_InlineStylesCommand);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1637,13 +1639,14 @@ exports.default = function (presetIdentifier, presetConfiguration) {
 
                 // View configuration
                 optionIdentifiers.forEach(function (optionIdentifier) {
-                    var option = presetConfiguration.options[optionIdentifier];
-                    // split the cssClass configuration to allow for multiple classes
-                    var classes = option.cssClass.split(' ');
+                    var options = presetConfiguration.options[optionIdentifier];
+                    var attribute = options.attribute;
+
+                    var classes = options.attributeValue || options.cssClass;
 
                     config.view[optionIdentifier] = {
                         name: 'span',
-                        classes: classes
+                        attributes: _defineProperty({}, attribute ? attribute : 'class', classes)
                     };
                 });
 
@@ -1680,13 +1683,24 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function attributeValueOrCssClass(props, propName, componentName) {
+    if (props[propName] && typeof props[propName] !== 'string') {
+        return new Error('Prop \'' + propName + '\' must be a string.');
+    }
+    if (!props.attributeValue && !props.cssClass) {
+        return new Error('Either prop \'attributeValue\' or \'cssClass\' must be supplied to ' + componentName + '.');
+    }
+}
+
 exports.default = _propTypes2.default.shape({
     label: _propTypes2.default.string.isRequired,
 
     // keys are the option values
     options: _propTypes2.default.objectOf(_propTypes2.default.shape({
         label: _propTypes2.default.string.isRequired,
-        cssClass: _propTypes2.default.string.isRequired
+        attribute: _propTypes2.default.string,
+        attributeValue: attributeValueOrCssClass,
+        cssClass: attributeValueOrCssClass
     }))
 });
 

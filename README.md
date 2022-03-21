@@ -4,6 +4,8 @@ This package allows you to add different styles based on your css-classes for th
 You can define the classes in you yaml configuration.  
 Styles can be applied both on block- and element level.
 
+It is also possible to set a different attribute (for usage with placeholders for example).
+
 
 **Demo:**
 
@@ -29,6 +31,8 @@ Styles can be applied both on block- and element level.
 In most projects there are requirements that you cannot achieve with tags alone, and you need classes under editorial control - 
 e.g. if you want to highlight some text with font size but don't use a headline for SEO reasons
 or want to add an icon, adjust the font color, ... 
+Or you want to add data-attributes to an element for use in combination with js ...
+
 
 ## Getting started
 
@@ -63,6 +67,13 @@ TechDivision:
             'big':
               label: 'Large'
               cssClass: 'my-class-size-large'
+        'dataAttribute':
+          label: 'Inline data attribute'
+          options:
+            'data':
+              label: 'Inline data'
+              attribute: 'data-attribute'
+              attributeValue: 'my-custom-attribute-value'
     BlockStyles:
       presets:
         'indent':
@@ -74,12 +85,19 @@ TechDivision:
             'secondary':
               label: '4 rem'
               cssClass: 'my-class-indent-4'
+        'dataAttribute':
+          label: 'Block data attribute'
+          options:
+            'data':
+              label: 'Block data'
+              attribute: 'data-attribute'
+              attributeValue: 'my-custom-attribute-value'
 ```
 
 Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 
 
-**What values are allowed for cssClass?**
+**What values are allowed for `cssClass` and/or `attributeValue`?**
 - **Not null** Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend. The select boxes of this package contain an "x" button for resetting the value.
 - Although you can add **multiple classes** by separating them with a whitespace. e.g. `btn btn-primary`, it is **highly recommended** to use only **one and unique** class across all Inline- or BlockStyles. See [known issues](#konwn-issues) for more details.
 
@@ -94,10 +112,12 @@ Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
         inline:
           editorOptions:
             inlineStyling:
+              dataAttribute: true
               fontColor: true
               fontSize: true
             blockStyling:
               indent: true
+              dataAttribute: true
 ```
 
 Example: [Configuration/NodeTypes.Override.BaseMixins.yaml](Configuration/NodeTypes.Override.BaseMixins.yaml)

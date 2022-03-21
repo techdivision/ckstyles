@@ -1,5 +1,5 @@
 // Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
-import { Command } from 'ckeditor5-exports';
+import {Command} from 'ckeditor5-exports';
 
 /**
  * Set a key-value block style; e.g. "fontColor=red".
@@ -37,11 +37,11 @@ export default class BlockStyleCommand extends Command {
     refresh() {
         const model = this.editor.model;
         const doc = model.document;
-        const blocksToChange = Array.from( doc.selection.getSelectedBlocks() );
+        const blocksToChange = Array.from(doc.selection.getSelectedBlocks());
 
         this.value = this._getValueFromBlockNode();
-        for ( const block of blocksToChange ) {
-            if(model.schema.checkAttribute(block, this.attributeKey)) {
+        for (const block of blocksToChange) {
+            if (model.schema.checkAttribute(block, this.attributeKey)) {
                 this.isEnabled = true;
             }
         }
@@ -60,9 +60,9 @@ export default class BlockStyleCommand extends Command {
         const doc = model.document;
         const selection = doc.selection;
         const value = options.value;
-        const blocksToChange = Array.from( selection.getSelectedBlocks() );
-        model.change( writer => {
-            for ( const block of blocksToChange ) {
+        const blocksToChange = Array.from(selection.getSelectedBlocks());
+        model.change(writer => {
+            for (const block of blocksToChange) {
                 if (value) {
                     writer.setAttribute(this.attributeKey, value, block);
                 } else {
@@ -82,7 +82,7 @@ export default class BlockStyleCommand extends Command {
         const model = this.editor.model;
         const schema = model.schema;
         const selection = model.document.selection;
-        const blocks = Array.from( selection.getSelectedBlocks() );
+        const blocks = Array.from(selection.getSelectedBlocks());
 
         for (const block of blocks) {
             if (schema.checkAttribute(block, this.attributeKey)) {

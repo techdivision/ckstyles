@@ -14,13 +14,13 @@ export default (presetIdentifier, presetConfiguration) =>
 
             schema.extend(
                 '$block',
-                { allowAttributes: modelAttributeKey}
+                {allowAttributes: modelAttributeKey}
             );
 
             // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
             schema.setAttributeProperties(
                 modelAttributeKey,
-                { isFormatting: true }
+                {isFormatting: true}
             );
 
             // Model configuration
@@ -34,13 +34,13 @@ export default (presetIdentifier, presetConfiguration) =>
 
             // View configuration
             optionIdentifiers.forEach(optionIdentifier => {
-                const option = presetConfiguration.options[optionIdentifier];
-                // split the cssClass configuration to allow for multiple classes
-                const classes = option.cssClass.split(' ');
+                const options = presetConfiguration.options[optionIdentifier];
+                const attribute = options.attribute || 'class';
+                const attributeValues = (attribute === options.attribute) ? options.attributeValue : (options.cssClass).split(' ');
 
                 config.view[optionIdentifier] = {
-                    key: 'class',
-                    value: classes
+                    key: attribute,
+                    value: attributeValues
                 }
             });
 
@@ -49,4 +49,4 @@ export default (presetIdentifier, presetConfiguration) =>
 
             this.editor.commands.add(`blockStyles:${presetIdentifier}`, new BlockStyleCommand(this.editor, modelAttributeKey));
         }
-    }
+    };

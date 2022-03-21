@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { SelectBox } from '@neos-project/react-ui-components';
-import { connect } from 'react-redux';
-import { $transform } from 'plow-js';
+import {SelectBox} from '@neos-project/react-ui-components';
+import {connect} from 'react-redux';
+import {$transform} from 'plow-js';
 import PresetType from '../PresetType';
 
 import {selectors} from '@neos-project/neos-ui-redux-store';
@@ -54,7 +54,7 @@ export default class BlockStyleSelector extends PureComponent {
     handleOnSelect(optionIdentifier) {
         CkEditorApi.executeCommand(
             `blockStyles:${this.props.presetIdentifier}`,
-            { value: optionIdentifier }
+            {value: optionIdentifier}
         );
     }
 }
