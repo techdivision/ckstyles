@@ -40,7 +40,7 @@ export default (presetIdentifier, presetConfiguration) =>
 
                 config.view[optionIdentifier] = {
                     name: 'span',
-                    attributes: {[attribute]: classes}
+                    attributes: {[attribute ? attribute : 'class']: classes}
                 }
             });
 

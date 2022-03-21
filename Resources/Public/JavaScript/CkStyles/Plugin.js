@@ -1646,7 +1646,7 @@ exports.default = function (presetIdentifier, presetConfiguration) {
 
                     config.view[optionIdentifier] = {
                         name: 'span',
-                        attributes: _defineProperty({}, attribute, classes)
+                        attributes: _defineProperty({}, attribute ? attribute : 'class', classes)
                     };
                 });
 
