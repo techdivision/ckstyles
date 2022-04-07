@@ -14,8 +14,7 @@
         }
     ],
     "require": {
-        "neos/neos-ui": ">=3.8 <8.0",
-        "yarn": "*"
+        "neos/neos-ui": ">=3.8 <8.0"
     },
     "extra": {
         "neos": {
