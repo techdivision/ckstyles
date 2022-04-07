@@ -25,4 +25,5 @@ jobs:
     - name: Build
       run: |
         npm install
+        npx yarn --cwd Resources/Private/JavaScript/CkStyles
         npx yarn --cwd Resources/Private/JavaScript/CkStyles build
