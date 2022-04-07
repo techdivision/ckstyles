@@ -1,12 +1,11 @@
 name: NodeJS with Webpack
 
-on:
-  release:
-    types: [ published ]
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
 
     strategy:
       matrix:
