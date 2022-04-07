@@ -13,6 +13,5 @@
     "buildTargetDirectory": "../../../Public/JavaScript/CkStyles"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-basic-styles": "^10.0.0"
   }
 }
