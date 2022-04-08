@@ -1,5 +1,4 @@
 .idea
 node_modules
 yarn.lock
-Resources/Public
 .DS_Store
