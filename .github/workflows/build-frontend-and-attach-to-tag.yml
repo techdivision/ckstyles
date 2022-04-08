@@ -26,4 +26,4 @@ jobs:
     - name: Upload
       uses: softprops/action-gh-release@v1
       with:
-        files: Resources/Public/**/*
+        files: Resources/Public/**/* # Upload every file that is built in any subfolder of Resource/Public/
