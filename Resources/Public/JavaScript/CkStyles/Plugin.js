@@ -1053,10 +1053,10 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
 
 /***/ }),
 
-/***/ "./src/BlockStyleCommand.js":
-/*!**********************************!*\
-  !*** ./src/BlockStyleCommand.js ***!
-  \**********************************/
+/***/ "./src/commands/BlockStyleCommand.js":
+/*!*******************************************!*\
+  !*** ./src/commands/BlockStyleCommand.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1111,6 +1111,8 @@ var BlockStyleCommand = function (_Command) {
          * @readonly
          * @member {Boolean} #value
          */
+
+        console.log('aaaaaa');
         return _this;
     }
 
@@ -1261,100 +1263,10 @@ exports.default = BlockStyleCommand;
 
 /***/ }),
 
-/***/ "./src/BlockStyleEditing.js":
-/*!**********************************!*\
-  !*** ./src/BlockStyleEditing.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _ckeditor5Exports = __webpack_require__(/*! ckeditor5-exports */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/ckeditor5-exports/index.js");
-
-var _BlockStyleCommand = __webpack_require__(/*! ./BlockStyleCommand */ "./src/BlockStyleCommand.js");
-
-var _BlockStyleCommand2 = _interopRequireDefault(_BlockStyleCommand);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-/**
- * FACTORY FUNCTION for the plugin
- * needs the current preset configuration as parameter.
- */
-exports.default = function (presetIdentifier, presetConfiguration) {
-    return function (_Plugin) {
-        _inherits(BlockStyleEditing, _Plugin);
-
-        function BlockStyleEditing() {
-            _classCallCheck(this, BlockStyleEditing);
-
-            return _possibleConstructorReturn(this, (BlockStyleEditing.__proto__ || Object.getPrototypeOf(BlockStyleEditing)).apply(this, arguments));
-        }
-
-        _createClass(BlockStyleEditing, [{
-            key: 'init',
-            value: function init() {
-                var schema = this.editor.model.schema;
-                var modelAttributeKey = 'blockStyles-' + presetIdentifier;
-                var optionIdentifiers = Object.keys(presetConfiguration.options);
-
-                schema.extend('$block', { allowAttributes: modelAttributeKey });
-
-                // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-                schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
-
-                // Model configuration
-                var config = {
-                    model: {
-                        key: modelAttributeKey,
-                        values: optionIdentifiers
-                    },
-                    view: {}
-                };
-
-                // View configuration
-                optionIdentifiers.forEach(function (optionIdentifier) {
-                    var options = presetConfiguration.options[optionIdentifier];
-                    var attribute = options.attribute || 'class';
-                    var attributeValues = attribute === options.attribute ? options.attributeValue : options.cssClass.split(' ');
-
-                    config.view[optionIdentifier] = {
-                        key: attribute,
-                        value: attributeValues
-                    };
-                });
-
-                // Convert the model to view correctly
-                this.editor.conversion.attributeToAttribute(config);
-
-                this.editor.commands.add('blockStyles:' + presetIdentifier, new _BlockStyleCommand2.default(this.editor, modelAttributeKey));
-            }
-        }]);
-
-        return BlockStyleEditing;
-    }(_ckeditor5Exports.Plugin);
-};
-
-/***/ }),
-
-/***/ "./src/InlineStylesCommand.js":
-/*!************************************!*\
-  !*** ./src/InlineStylesCommand.js ***!
-  \************************************/
+/***/ "./src/commands/InlineStylesCommand.js":
+/*!*********************************************!*\
+  !*** ./src/commands/InlineStylesCommand.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1570,10 +1482,138 @@ exports.default = InlineStylesCommand;
 
 /***/ }),
 
-/***/ "./src/InlineStylesEditing.js":
-/*!************************************!*\
-  !*** ./src/InlineStylesEditing.js ***!
-  \************************************/
+/***/ "./src/components/StyleSelector.js":
+/*!*****************************************!*\
+  !*** ./src/components/StyleSelector.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class, _class2, _temp;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactUiComponents = __webpack_require__(/*! @neos-project/react-ui-components */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/react-ui-components/index.js");
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/react-redux/index.js");
+
+var _plowJs = __webpack_require__(/*! plow-js */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/plow-js/index.js");
+
+var _neosUiReduxStore = __webpack_require__(/*! @neos-project/neos-ui-redux-store */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/neos-ui-redux-store/index.js");
+
+var _neosUiCkeditor5Bindings = __webpack_require__(/*! @neos-project/neos-ui-ckeditor5-bindings */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/neos-ui-ckeditor5-bindings/index.js");
+
+var CkEditorApi = _interopRequireWildcard(_neosUiCkeditor5Bindings);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StyleSelector = (_dec = (0, _reactRedux.connect)((0, _plowJs.$transform)({
+    formattingUnderCursor: _neosUiReduxStore.selectors.UI.ContentCanvas.formattingUnderCursor
+})), _dec(_class = (_temp = _class2 = function (_PureComponent) {
+    _inherits(StyleSelector, _PureComponent);
+
+    function StyleSelector() {
+        var _ref;
+
+        _classCallCheck(this, StyleSelector);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        var _this = _possibleConstructorReturn(this, (_ref = StyleSelector.__proto__ || Object.getPrototypeOf(StyleSelector)).call.apply(_ref, [this].concat(args)));
+
+        _this.handleOnSelect = _this.handleOnSelect.bind(_this);
+        return _this;
+    }
+
+    /**
+     * returns the SelectBox JSX Component for the CKEditor
+     * @returns {JSX.Element|null}
+     */
+
+
+    _createClass(StyleSelector, [{
+        key: 'render',
+        value: function render() {
+
+            var optionsForSelect = Object.entries(this.props.preset.options).map(function (_ref2) {
+                var _ref3 = _slicedToArray(_ref2, 2),
+                    optionIdentifier = _ref3[0],
+                    optionConfiguration = _ref3[1];
+
+                return {
+                    value: optionIdentifier, label: optionConfiguration.label
+                };
+            });
+
+            if (optionsForSelect.length === 0) {
+                return null;
+            }
+
+            var currentValue = this.props.formattingUnderCursor[this.props.preset.helper.command];
+
+            return _react2.default.createElement(_reactUiComponents.SelectBox, {
+                options: optionsForSelect,
+                value: currentValue,
+                allowEmpty: true,
+                placeholder: this.props.preset.label,
+                onValueChange: this.handleOnSelect
+            });
+        }
+
+        /**
+         * execute the command on interaction
+         * @param optionIdentifier
+         */
+
+    }, {
+        key: 'handleOnSelect',
+        value: function handleOnSelect(optionIdentifier) {
+            CkEditorApi.executeCommand(this.props.preset.helper.command, { value: optionIdentifier });
+        }
+    }]);
+
+    return StyleSelector;
+}(_react.PureComponent), _class2.propTypes = {
+    // from outside props
+    preset: _propTypes2.default.string.isRequired, // from @connect
+    formattingUnderCursor: _propTypes2.default.object
+}, _temp)) || _class);
+exports.default = StyleSelector;
+
+/***/ }),
+
+/***/ "./src/factories/StyleEditing.js":
+/*!***************************************!*\
+  !*** ./src/factories/StyleEditing.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1588,7 +1628,11 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ckeditor5Exports = __webpack_require__(/*! ckeditor5-exports */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/ckeditor5-exports/index.js");
 
-var _InlineStylesCommand = __webpack_require__(/*! ./InlineStylesCommand */ "./src/InlineStylesCommand.js");
+var _BlockStyleCommand = __webpack_require__(/*! ../commands/BlockStyleCommand */ "./src/commands/BlockStyleCommand.js");
+
+var _BlockStyleCommand2 = _interopRequireDefault(_BlockStyleCommand);
+
+var _InlineStylesCommand = __webpack_require__(/*! ../commands/InlineStylesCommand */ "./src/commands/InlineStylesCommand.js");
 
 var _InlineStylesCommand2 = _interopRequireDefault(_InlineStylesCommand);
 
@@ -1606,110 +1650,115 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * FACTORY FUNCTION for the plugin
  * needs the current preset configuration as parameter.
  */
-exports.default = function (presetIdentifier, presetConfiguration) {
+exports.default = function (preset) {
     return function (_Plugin) {
-        _inherits(InlineStylesEditing, _Plugin);
+        _inherits(StyleEditing, _Plugin);
 
-        function InlineStylesEditing() {
-            _classCallCheck(this, InlineStylesEditing);
+        function StyleEditing() {
+            _classCallCheck(this, StyleEditing);
 
-            return _possibleConstructorReturn(this, (InlineStylesEditing.__proto__ || Object.getPrototypeOf(InlineStylesEditing)).apply(this, arguments));
+            return _possibleConstructorReturn(this, (StyleEditing.__proto__ || Object.getPrototypeOf(StyleEditing)).apply(this, arguments));
         }
 
-        _createClass(InlineStylesEditing, [{
-            key: 'init',
+        _createClass(StyleEditing, [{
+            key: "init",
             value: function init() {
-                var schema = this.editor.model.schema;
-                var optionIdentifiers = Object.keys(presetConfiguration.options);
-                var modelAttributeKey = 'inlineStyles-' + presetIdentifier;
+                this.schema = this.editor.model.schema;
+                this.attributeKey = preset.helper.attributeKey;
+                this.presetOptions = Object.keys(preset.options);
 
-                schema.extend('$text', { allowAttributes: modelAttributeKey });
+                this.extendSchema();
+                this.buildConfig();
+                this.addToEditorCommands();
+            }
 
-                // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-                schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
+            /**
+             * Extend the editor schema and mark the "attributeKey" model attribute as formatting.
+             * https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
+             */
+
+        }, {
+            key: "extendSchema",
+            value: function extendSchema() {
+                // add attribute key to schema
+                this.schema.extend(preset.helper.schema, { allowAttributes: this.attributeKey });
+
+                this.schema.setAttributeProperties(this.attributeKey, { isFormatting: true });
+            }
+
+            /**
+             * build the configuration for the editor command
+             */
+
+        }, {
+            key: "buildConfig",
+            value: function buildConfig() {
+                var _this2 = this;
 
                 // Model configuration
-                var config = {
+                this.config = {
                     model: {
-                        key: modelAttributeKey,
-                        values: optionIdentifiers
+                        key: this.attributeKey,
+                        values: this.presetOptions
                     },
                     view: {}
                 };
 
                 // View configuration
-                optionIdentifiers.forEach(function (optionIdentifier) {
-                    var options = presetConfiguration.options[optionIdentifier];
-                    var attribute = options.attribute;
-
-                    var classes = options.attributeValue || options.cssClass;
-
-                    config.view[optionIdentifier] = {
-                        name: 'span',
-                        attributes: _defineProperty({}, attribute ? attribute : 'class', classes)
-                    };
+                this.presetOptions.forEach(function (presetOptionKey) {
+                    var presetOption = preset.options[presetOptionKey];
+                    _this2.config.view[presetOptionKey] = _this2.getViewConfig(presetOption);
                 });
+            }
 
-                // Convert the model to view correctly
-                this.editor.conversion.attributeToElement(config);
+            /**
+             * add built config to ckeditor commands
+             */
 
-                this.editor.commands.add('inlineStyles:' + presetIdentifier, new _InlineStylesCommand2.default(this.editor, modelAttributeKey));
+        }, {
+            key: "addToEditorCommands",
+            value: function addToEditorCommands() {
+                if (preset.helper.isBlockType) {
+                    this.editor.conversion.attributeToAttribute(this.config);
+                    this.editor.commands.add(preset.helper.command, new _BlockStyleCommand2.default(this.editor, this.attributeKey));
+                } else {
+                    this.editor.conversion.attributeToElement(this.config);
+                    this.editor.commands.add(preset.helper.command, new _InlineStylesCommand2.default(this.editor, this.attributeKey));
+                }
+            }
+
+            /**
+             * returns the object of the view for an option
+             * @param presetOption
+             * @returns {{value, key: (*|string|null)}|{name: string, attributes: {}}}
+             */
+
+        }, {
+            key: "getViewConfig",
+            value: function getViewConfig(presetOption) {
+                if (preset.helper.isBlockType) {
+                    return {
+                        key: presetOption.attribute,
+                        value: presetOption.value
+                    };
+                }
+                return {
+                    name: 'span',
+                    attributes: _defineProperty({}, presetOption.attribute, presetOption.value)
+                };
             }
         }]);
 
-        return InlineStylesEditing;
+        return StyleEditing;
     }(_ckeditor5Exports.Plugin);
 };
 
 /***/ }),
 
-/***/ "./src/PresetType.js":
-/*!***************************!*\
-  !*** ./src/PresetType.js ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function attributeValueOrCssClass(props, propName, componentName) {
-    if (props[propName] && typeof props[propName] !== 'string') {
-        return new Error('Prop \'' + propName + '\' must be a string.');
-    }
-    if (!props.attributeValue && !props.cssClass) {
-        return new Error('Either prop \'attributeValue\' or \'cssClass\' must be supplied to ' + componentName + '.');
-    }
-}
-
-exports.default = _propTypes2.default.shape({
-    label: _propTypes2.default.string.isRequired,
-
-    // keys are the option values
-    options: _propTypes2.default.objectOf(_propTypes2.default.shape({
-        label: _propTypes2.default.string.isRequired,
-        attribute: _propTypes2.default.string,
-        attributeValue: attributeValueOrCssClass,
-        cssClass: attributeValueOrCssClass
-    }))
-});
-
-/***/ }),
-
-/***/ "./src/components/BlockStyleSelector.js":
-/*!**********************************************!*\
-  !*** ./src/components/BlockStyleSelector.js ***!
-  \**********************************************/
+/***/ "./src/helpers/CkEditorExtender.js":
+/*!*****************************************!*\
+  !*** ./src/helpers/CkEditorExtender.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1721,118 +1770,93 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _class, _class2, _temp;
+var _StyleSelector = __webpack_require__(/*! ../components/StyleSelector */ "./src/components/StyleSelector.js");
 
-var _react = __webpack_require__(/*! react */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/react/index.js");
+var _StyleSelector2 = _interopRequireDefault(_StyleSelector);
 
-var _react2 = _interopRequireDefault(_react);
+var _StyleEditing = __webpack_require__(/*! ../factories/StyleEditing */ "./src/factories/StyleEditing.js");
 
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactUiComponents = __webpack_require__(/*! @neos-project/react-ui-components */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/react-ui-components/index.js");
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/react-redux/index.js");
-
-var _plowJs = __webpack_require__(/*! plow-js */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/plow-js/index.js");
-
-var _PresetType = __webpack_require__(/*! ../PresetType */ "./src/PresetType.js");
-
-var _PresetType2 = _interopRequireDefault(_PresetType);
-
-var _neosUiReduxStore = __webpack_require__(/*! @neos-project/neos-ui-redux-store */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/neos-ui-redux-store/index.js");
-
-var _neosUiCkeditor5Bindings = __webpack_require__(/*! @neos-project/neos-ui-ckeditor5-bindings */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/neos-ui-ckeditor5-bindings/index.js");
-
-var CkEditorApi = _interopRequireWildcard(_neosUiCkeditor5Bindings);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _StyleEditing2 = _interopRequireDefault(_StyleEditing);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var CkEditorExtender = function () {
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    /**
+     * apply the presets to the ckeditor
+     * by given Presets[PresetOptions[]][]
+     * @param presetCollection given Presets[PresetOptions[]][]
+     * @param globalRegistry
+     */
+    function CkEditorExtender(presetCollection, globalRegistry) {
+        var _this = this;
 
-var BlockStyleSelector = (_dec = (0, _reactRedux.connect)((0, _plowJs.$transform)({
-    formattingUnderCursor: _neosUiReduxStore.selectors.UI.ContentCanvas.formattingUnderCursor
-})), _dec(_class = (_temp = _class2 = function (_PureComponent) {
-    _inherits(BlockStyleSelector, _PureComponent);
+        _classCallCheck(this, CkEditorExtender);
 
-    function BlockStyleSelector() {
-        var _ref;
+        this.configuration = globalRegistry.get('ckEditor5').get('config');
+        this.toolbar = globalRegistry.get('ckEditor5').get('richtextToolbar');
 
-        _classCallCheck(this, BlockStyleSelector);
-
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        var _this = _possibleConstructorReturn(this, (_ref = BlockStyleSelector.__proto__ || Object.getPrototypeOf(BlockStyleSelector)).call.apply(_ref, [this].concat(args)));
-
-        _this.handleOnSelect = _this.handleOnSelect.bind(_this);
-        return _this;
+        // extend the ckeditor
+        presetCollection.forEach(function (preset) {
+            _this.extendConfiguration(preset);
+            _this.extendToolbar(preset);
+        });
     }
 
-    _createClass(BlockStyleSelector, [{
-        key: 'render',
-        value: function render() {
-            var optionsForSelect = Object.entries(this.props.presetConfiguration.options).map(function (_ref2) {
-                var _ref3 = _slicedToArray(_ref2, 2),
-                    optionIdentifier = _ref3[0],
-                    optionConfiguration = _ref3[1];
+    /**
+     * extends the configuration for a given Preset
+     * @param preset
+     */
 
-                return {
-                    value: optionIdentifier,
-                    label: optionConfiguration.label
-                };
-            });
 
-            if (optionsForSelect.length === 0) {
-                return null;
-            }
+    _createClass(CkEditorExtender, [{
+        key: "extendConfiguration",
+        value: function extendConfiguration(preset) {
+            this.configuration.set(preset.helper.configurationIdentifier, function (ckEditorConfiguration, _ref) {
+                var editorOptions = _ref.editorOptions;
 
-            var currentValue = this.props.formattingUnderCursor['blockStyles:' + this.props.presetIdentifier];
-
-            return _react2.default.createElement(_reactUiComponents.SelectBox, {
-                options: optionsForSelect,
-                value: currentValue,
-                allowEmpty: true,
-                placeholder: this.props.presetConfiguration.label,
-                onValueChange: this.handleOnSelect
+                ckEditorConfiguration.plugins = ckEditorConfiguration.plugins || [];
+                ckEditorConfiguration.plugins.push((0, _StyleEditing2.default)(preset));
+                return ckEditorConfiguration;
             });
         }
+
+        /**
+         * extends the toolbar of the ckeditor for given Preset
+         * @param {Preset} preset
+         */
+
     }, {
-        key: 'handleOnSelect',
-        value: function handleOnSelect(optionIdentifier) {
-            CkEditorApi.executeCommand('blockStyles:' + this.props.presetIdentifier, { value: optionIdentifier });
+        key: "extendToolbar",
+        value: function extendToolbar(preset) {
+            this.toolbar.set(preset.helper.relationIdentifier, {
+                component: _StyleSelector2.default,
+                preset: preset,
+                isVisible: function isVisible(editorOptions, formattingUnderCursor) {
+                    if (editorOptions[preset.type + 'Styling']) {
+                        return editorOptions[preset.type + 'Styling'][preset.identifier];
+                    }
+                    return false;
+                }
+            });
         }
     }]);
 
-    return BlockStyleSelector;
-}(_react.PureComponent), _class2.propTypes = {
-    // from outside props
-    presetIdentifier: _propTypes2.default.string.isRequired,
-    presetConfiguration: _PresetType2.default.isRequired,
+    return CkEditorExtender;
+}();
 
-    // from @connect
-    formattingUnderCursor: _propTypes2.default.object
-}, _temp)) || _class);
-exports.default = BlockStyleSelector;
+exports.default = CkEditorExtender;
 
 /***/ }),
 
-/***/ "./src/components/InlineStyleSelector.js":
-/*!***********************************************!*\
-  !*** ./src/components/InlineStyleSelector.js ***!
-  \***********************************************/
+/***/ "./src/helpers/ConfigurationBuilder.js":
+/*!*********************************************!*\
+  !*** ./src/helpers/ConfigurationBuilder.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1844,111 +1868,191 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _class, _class2, _temp;
+var _CkEditorExtender = __webpack_require__(/*! ./CkEditorExtender */ "./src/helpers/CkEditorExtender.js");
 
-var _react = __webpack_require__(/*! react */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/react/index.js");
+var _CkEditorExtender2 = _interopRequireDefault(_CkEditorExtender);
 
-var _react2 = _interopRequireDefault(_react);
+var _Preset = __webpack_require__(/*! ../models/Preset */ "./src/models/Preset.js");
 
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactUiComponents = __webpack_require__(/*! @neos-project/react-ui-components */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/react-ui-components/index.js");
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/react-redux/index.js");
-
-var _plowJs = __webpack_require__(/*! plow-js */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/plow-js/index.js");
-
-var _PresetType = __webpack_require__(/*! ../PresetType */ "./src/PresetType.js");
-
-var _PresetType2 = _interopRequireDefault(_PresetType);
-
-var _neosUiReduxStore = __webpack_require__(/*! @neos-project/neos-ui-redux-store */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/neos-ui-redux-store/index.js");
-
-var _neosUiCkeditor5Bindings = __webpack_require__(/*! @neos-project/neos-ui-ckeditor5-bindings */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/neosProjectPackages/neos-ui-ckeditor5-bindings/index.js");
-
-var CkEditorApi = _interopRequireWildcard(_neosUiCkeditor5Bindings);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _Preset2 = _interopRequireDefault(_Preset);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var ConfigurationBuilder = function () {
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    /**
+     * builds the configuration and apply it to the ckeditor
+     * by given YAML configuration
+     * @param yamlConfiguration
+     * @param globalRegistry
+     */
 
-var InlineStyleSelector = (_dec = (0, _reactRedux.connect)((0, _plowJs.$transform)({
-    formattingUnderCursor: _neosUiReduxStore.selectors.UI.ContentCanvas.formattingUnderCursor
-})), _dec(_class = (_temp = _class2 = function (_PureComponent) {
-    _inherits(InlineStyleSelector, _PureComponent);
 
-    function InlineStyleSelector() {
-        var _ref;
+    /**
+     * defines the types of presets and the yaml path of configuration
+     * @type {{inline: string, block: string}}
+     */
+    function ConfigurationBuilder(yamlConfiguration, globalRegistry) {
+        _classCallCheck(this, ConfigurationBuilder);
 
-        _classCallCheck(this, InlineStyleSelector);
+        this.presetTypes = {
+            'inline': 'TechDivision.CkStyles:InlineStyles',
+            'block': 'TechDivision.CkStyles:BlockStyles'
+        };
+        this.presetCollection = [];
 
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
+        this.yamlConfiguration = yamlConfiguration;
+        this.globalRegistry = globalRegistry;
 
-        var _this = _possibleConstructorReturn(this, (_ref = InlineStyleSelector.__proto__ || Object.getPrototypeOf(InlineStyleSelector)).call.apply(_ref, [this].concat(args)));
-
-        _this.handleOnSelect = _this.handleOnSelect.bind(_this);
-        return _this;
+        // initialize, validate, build and apply configuration
+        this.initializeConfiguration();
     }
 
-    _createClass(InlineStyleSelector, [{
-        key: 'render',
-        value: function render() {
-            var optionsForSelect = Object.entries(this.props.presetConfiguration.options).map(function (_ref2) {
-                var _ref3 = _slicedToArray(_ref2, 2),
-                    optionIdentifier = _ref3[0],
-                    optionConfiguration = _ref3[1];
+    /**
+     * validation of given yaml configuration
+     * @returns {boolean}
+     */
 
-                return {
-                    value: optionIdentifier,
-                    label: optionConfiguration.label
-                };
-            });
 
-            if (optionsForSelect.length === 0) {
-                return null;
+    /**
+     * used to collect all built Preset[] for later use
+     * @type {[]}
+     */
+
+
+    _createClass(ConfigurationBuilder, [{
+        key: "isValid",
+        value: function isValid(configuration) {
+            if (configuration && Object.keys(configuration.presets)) {
+                return true;
             }
-
-            var currentValue = this.props.formattingUnderCursor['inlineStyles:' + this.props.presetIdentifier];
-
-            return _react2.default.createElement(_reactUiComponents.SelectBox, {
-                options: optionsForSelect,
-                value: currentValue,
-                allowEmpty: true,
-                placeholder: this.props.presetConfiguration.label,
-                onValueChange: this.handleOnSelect
-            });
+            return false;
         }
+
+        /**
+         * validate and build configuration for every presetType (atm. inline and block)
+         * and then extend the CKEditor with build presets
+         */
+
     }, {
-        key: 'handleOnSelect',
-        value: function handleOnSelect(optionIdentifier) {
-            CkEditorApi.executeCommand('inlineStyles:' + this.props.presetIdentifier, { value: optionIdentifier });
+        key: "initializeConfiguration",
+        value: function initializeConfiguration() {
+            var _this = this;
+
+            Object.keys(this.presetTypes).forEach(function (presetType) {
+                var configuration = _this.yamlConfiguration[_this.presetTypes[presetType]];
+                if (_this.isValid(configuration)) {
+                    _this.buildConfiguration(configuration, presetType);
+                }
+            });
+
+            // extend ckeditor with built presets and their options
+            new _CkEditorExtender2.default(this.presetCollection, this.globalRegistry);
+        }
+
+        /**
+         *
+         * build Preset Models for every given preset entry
+         *
+         * @param configuration yaml configuration of preset type
+         * @param presetType the preset type (e.g. inline or block)
+         */
+
+    }, {
+        key: "buildConfiguration",
+        value: function buildConfiguration(configuration, presetType) {
+            var _this2 = this;
+
+            Object.keys(configuration.presets).forEach(function (presetIdentifier) {
+                var presetConfiguration = configuration.presets[presetIdentifier];
+                _this2.presetCollection.push(new _Preset2.default(presetConfiguration, presetIdentifier, presetType));
+            });
         }
     }]);
 
-    return InlineStyleSelector;
-}(_react.PureComponent), _class2.propTypes = {
-    // from outside props
-    presetIdentifier: _propTypes2.default.string.isRequired,
-    presetConfiguration: _PresetType2.default.isRequired,
+    return ConfigurationBuilder;
+}();
 
-    // from @connect
-    formattingUnderCursor: _propTypes2.default.object
-}, _temp)) || _class);
-exports.default = InlineStyleSelector;
+exports.default = ConfigurationBuilder;
+
+/***/ }),
+
+/***/ "./src/helpers/PresetHelper.js":
+/*!*************************************!*\
+  !*** ./src/helpers/PresetHelper.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * used to generate identifiers for different components based on the unique preset and type
+ */
+var PresetHelper = function () {
+    function PresetHelper(id, type) {
+        _classCallCheck(this, PresetHelper);
+
+        this.pluginPath = 'TechDivision.CkStyles:';
+        this.blockType = 'block';
+
+        this.identifier = id;
+        this.type = type;
+        this.typeCapitalized = type.charAt(0).toUpperCase() + type.slice(1); // e.g. inline -> Inline
+    }
+
+    _createClass(PresetHelper, [{
+        key: 'relationIdentifier',
+        get: function get() {
+            return this.typeCapitalized + 'Styles_' + this.identifier;
+        }
+    }, {
+        key: 'configurationIdentifier',
+        get: function get() {
+            return this.pluginPath + this.relationIdentifier;
+        }
+    }, {
+        key: 'command',
+        get: function get() {
+            return this.type + 'Styles:' + this.identifier;
+        }
+    }, {
+        key: 'attributeKey',
+        get: function get() {
+            return this.type + 'Styles-' + this.identifier;
+        }
+    }, {
+        key: 'schema',
+        get: function get() {
+            if (this.isBlockType) {
+                return '$block';
+            }
+            return '$text';
+        }
+    }, {
+        key: 'isBlockType',
+        get: function get() {
+            return this.type === this.blockType;
+        }
+    }]);
+
+    return PresetHelper;
+}();
+
+exports.default = PresetHelper;
 
 /***/ }),
 
@@ -1982,21 +2086,9 @@ var _neosUiExtensibility2 = _interopRequireDefault(_neosUiExtensibility);
 
 var _plowJs = __webpack_require__(/*! plow-js */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/plow-js/index.js");
 
-var _InlineStylesEditing = __webpack_require__(/*! ./InlineStylesEditing */ "./src/InlineStylesEditing.js");
+var _ConfigurationBuilder = __webpack_require__(/*! ./helpers/ConfigurationBuilder */ "./src/helpers/ConfigurationBuilder.js");
 
-var _InlineStylesEditing2 = _interopRequireDefault(_InlineStylesEditing);
-
-var _InlineStyleSelector = __webpack_require__(/*! ./components/InlineStyleSelector */ "./src/components/InlineStyleSelector.js");
-
-var _InlineStyleSelector2 = _interopRequireDefault(_InlineStyleSelector);
-
-var _BlockStyleEditing = __webpack_require__(/*! ./BlockStyleEditing */ "./src/BlockStyleEditing.js");
-
-var _BlockStyleEditing2 = _interopRequireDefault(_BlockStyleEditing);
-
-var _BlockStyleSelector = __webpack_require__(/*! ./components/BlockStyleSelector */ "./src/components/BlockStyleSelector.js");
-
-var _BlockStyleSelector2 = _interopRequireDefault(_BlockStyleSelector);
+var _ConfigurationBuilder2 = _interopRequireDefault(_ConfigurationBuilder);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2004,76 +2096,148 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     var frontendConfiguration = _ref.frontendConfiguration;
 
 
-    var ckEditorRegistry = globalRegistry.get('ckEditor5');
-    var richtextToolbar = ckEditorRegistry.get('richtextToolbar');
-    var config = ckEditorRegistry.get('config');
-
-    var inlineStyleConfiguration = frontendConfiguration['TechDivision.CkStyles:InlineStyles'];
-    var blockStyleConfiguration = frontendConfiguration['TechDivision.CkStyles:BlockStyles'];
-
-    // Block style
-    if (blockStyleConfiguration) {
-
-        Object.keys(blockStyleConfiguration.presets).forEach(function (presetIdentifier) {
-
-            var blockStylePresetConfiguration = blockStyleConfiguration.presets[presetIdentifier];
-
-            config.set('TechDivision.CkStyles:BlockStyles_' + presetIdentifier, function (ckEditorConfiguration, _ref2) {
-                var editorOptions = _ref2.editorOptions;
-
-                var editing = (0, _BlockStyleEditing2.default)(presetIdentifier, blockStylePresetConfiguration);
-                ckEditorConfiguration.plugins = ckEditorConfiguration.plugins || [];
-                ckEditorConfiguration.plugins.push(editing);
-                return ckEditorConfiguration;
-            });
-
-            richtextToolbar.set('blockStyles_' + presetIdentifier, {
-                component: _BlockStyleSelector2.default,
-                // Display only if the preset is activated in NodeType.yaml for this node property
-                isVisible: function isVisible(editorOptions, formattingUnderCursor) {
-                    var isVisible = false;
-                    if (editorOptions['blockStyling'] !== undefined && editorOptions['blockStyling'][presetIdentifier] !== undefined) {
-                        isVisible = editorOptions['blockStyling'][presetIdentifier];
-                    }
-                    return isVisible;
-                },
-                presetIdentifier: presetIdentifier,
-                presetConfiguration: blockStylePresetConfiguration
-            });
-        });
-    }
-
-    //Inline Style
-    if (inlineStyleConfiguration) {
-
-        Object.keys(inlineStyleConfiguration.presets).forEach(function (presetIdentifier) {
-
-            var inlineStylePresetConfiguration = inlineStyleConfiguration.presets[presetIdentifier];
-
-            config.set('TechDivision.CkStyle:InlineStyles_' + presetIdentifier, function (ckEditorConfiguration, _ref3) {
-                var editorOptions = _ref3.editorOptions;
-
-                ckEditorConfiguration.plugins = ckEditorConfiguration.plugins || [];
-                ckEditorConfiguration.plugins.push((0, _InlineStylesEditing2.default)(presetIdentifier, inlineStylePresetConfiguration));
-                return ckEditorConfiguration;
-            });
-
-            richtextToolbar.set('inlineStyles_' + presetIdentifier, {
-                component: _InlineStyleSelector2.default,
-                // Display only if the preset is activated in NodeType.yaml for this node property
-                isVisible: function isVisible(editorOptions, formattingUnderCursor) {
-                    var isVisible = false;
-                    if (editorOptions['inlineStyling'] !== undefined && editorOptions['inlineStyling'][presetIdentifier] !== undefined) {
-                        isVisible = editorOptions['inlineStyling'][presetIdentifier];
-                    }
-                    return isVisible;
-                },
-                presetIdentifier: presetIdentifier,
-                presetConfiguration: inlineStylePresetConfiguration
-            });
-        });
-    }
+    new _ConfigurationBuilder2.default(frontendConfiguration, globalRegistry);
 });
+
+/***/ }),
+
+/***/ "./src/models/Preset.js":
+/*!******************************!*\
+  !*** ./src/models/Preset.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _PresetOption = __webpack_require__(/*! ./PresetOption */ "./src/models/PresetOption.js");
+
+var _PresetOption2 = _interopRequireDefault(_PresetOption);
+
+var _PresetHelper = __webpack_require__(/*! ../helpers/PresetHelper */ "./src/helpers/PresetHelper.js");
+
+var _PresetHelper2 = _interopRequireDefault(_PresetHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Preset = function () {
+    function Preset(presetConfiguration, presetIdentifier, type) {
+        _classCallCheck(this, Preset);
+
+        this.options = [];
+
+        this.configuration = presetConfiguration;
+        this.identifier = presetIdentifier;
+        this.type = type;
+        this.helper = new _PresetHelper2.default(presetIdentifier, type);
+        this.addOptions();
+    }
+
+    _createClass(Preset, [{
+        key: "addOptions",
+
+
+        /**
+         * builds every PresetOption of this Preset
+         */
+        value: function addOptions() {
+            var _this = this;
+
+            Object.keys(this.configuration.options).forEach(function (optionIdentifier) {
+                _this.options[optionIdentifier] = new _PresetOption2.default(_this.configuration.options[optionIdentifier]);
+            });
+        }
+    }, {
+        key: "label",
+        get: function get() {
+            return this.configuration.label;
+        }
+    }]);
+
+    return Preset;
+}();
+
+exports.default = Preset;
+
+/***/ }),
+
+/***/ "./src/models/PresetOption.js":
+/*!************************************!*\
+  !*** ./src/models/PresetOption.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var PresetOption = function () {
+    function PresetOption(option) {
+        _classCallCheck(this, PresetOption);
+
+        this.option = option;
+    }
+
+    _createClass(PresetOption, [{
+        key: 'label',
+        get: function get() {
+            return this.option.label;
+        }
+
+        /**
+         * returns the html attribute name
+         * (downward compatibility with older configurations)
+         * @returns {string}
+         */
+
+    }, {
+        key: 'attribute',
+        get: function get() {
+            if (this.option.attribute) {
+                return this.option.attribute;
+            }
+            return 'class';
+        }
+
+        /**
+         * returns value of the attribute
+         * either the class value or the attribute value from the yaml configuration
+         * (downward compatibility with older configurations)
+         * @returns {string}
+         */
+
+    }, {
+        key: 'value',
+        get: function get() {
+            if (this.attribute === 'class') {
+                return this.option.cssClass;
+            }
+            return this.option.attributeValue;
+        }
+    }]);
+
+    return PresetOption;
+}();
+
+exports.default = PresetOption;
 
 /***/ })
 

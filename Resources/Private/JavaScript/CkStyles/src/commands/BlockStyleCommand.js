@@ -29,6 +29,9 @@ export default class BlockStyleCommand extends Command {
          * @readonly
          * @member {Boolean} #value
          */
+
+
+        console.log('aaaaaa')
     }
 
     /**

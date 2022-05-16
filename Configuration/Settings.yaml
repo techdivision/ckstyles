@@ -15,18 +15,6 @@
 #            '':
 #              label: 'unset color'
 #              cssClass: null
-#        'fontSize':
-#          label: 'Font size'
-#          options:
-#            'small':
-#              label: 'Small'
-#              cssClass: 'my-class-size-small'
-#            'big':
-#              label: 'Large'
-#              cssClass: 'my-class-size-large'
-#            '':
-#              label: 'unset size'
-#              cssClass: null
 #    BlockStyles:
 #      presets:
 #        'indent':
@@ -42,6 +30,9 @@
 #              label: 'remove indent'
 #              cssClass: null
 
+
+# DO NOT REMOVE BELOW
+# apply javascript and configuration paths
 Neos:
   Neos:
     Ui:
