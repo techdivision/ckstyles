@@ -30,8 +30,6 @@ export default class BlockStyleCommand extends Command {
          * @member {Boolean} #value
          */
 
-
-        console.log('aaaaaa')
     }
 
     /**
