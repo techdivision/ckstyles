@@ -32,6 +32,7 @@ Or you want to add data-attributes to an element for use in combination with Jav
 7. [Known Issues](#known-issues)
 8. [Contribute](#contribute)
 
+
 ## Demo
 
 ![Applying inline style](Documentation/assets/InlineStyleDemo.gif "Inline style")
@@ -80,7 +81,7 @@ Start a watcher:
 
 ---
 
-## Example: Define custom BlockStyles
+## Define a BlockStyle
 
 BlocksStyles will affect the entire paragraph of selected text within the CkEditor.
 
@@ -105,7 +106,7 @@ TechDivision:
 ### Enable new CKEditor Style within 'Neos.NodeTypes.BaseMixins:TextMixin' (BlockStyles)
 
 ```yaml
-'Neos.NodeTypes.BaseMixins:TextMixin':
+'Neos.NodeTypes.BaseMixins:TextMixin': # or any other project specific node type with an inline ckeditor
   abstract: true
   properties:
     text:
@@ -137,7 +138,7 @@ TechDivision:
 
 ---
 
-## Example: Define custom InlineStyles
+## Define an InlineStyles
 
 InlineStyles will affect just the selected text within the CkEditor.
 
@@ -162,7 +163,7 @@ TechDivision:
 ### Enable new CKEditor Style within 'Neos.NodeTypes.BaseMixins:TextMixin' (InlineStyles)
 
 ```yaml
-'Neos.NodeTypes.BaseMixins:TextMixin':
+'Neos.NodeTypes.BaseMixins:TextMixin': # or any other project specific node type with an inline ckeditor
   abstract: true
   properties:
     text:
@@ -194,9 +195,11 @@ TechDivision:
 
 ---
 
-## Define the used HTML Attribute at the output
+## Define custom HTML Attribute block or inline style
 
 You can use any html attribute, by using `attribute` and `attributeValue` at your options within your configuration.
+
+You can use this with BlockStyles or InlineStyles.
 
 ```yaml
 TechDivision:
