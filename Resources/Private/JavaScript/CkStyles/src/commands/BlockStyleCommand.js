@@ -20,15 +20,6 @@ export default class BlockStyleCommand extends Command {
          * @member {String}
          */
         this.attributeKey = attributeKey;
-
-        /**
-         * Flag indicating whether the command is active. The command is active when the
-         * {@link module:engine/model/selection~Selection#hasAttribute selection has the attribute} which means that:
-         *
-         * @observable
-         * @readonly
-         * @member {Boolean} #value
-         */
     }
 
     /**
@@ -48,7 +39,7 @@ export default class BlockStyleCommand extends Command {
     }
 
     /**
-     * Executes the command &mdash; sets the attribute to the desired value. If there is no desired valued, removes the
+     * Executes the command - sets the attribute to the desired value. If there is no desired valued, removes the
      * attribute on each block.
      *
      * @fires execute
