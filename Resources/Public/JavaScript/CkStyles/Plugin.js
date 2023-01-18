@@ -96,9 +96,11 @@
 "use strict";
 
 
+var __importDefault = undefined && undefined.__importDefault || function (mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
+};
 exports.__esModule = true;
-var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-var manifest_1 = tslib_1.__importDefault(__webpack_require__(/*! ./manifest */ "./node_modules/@neos-project/neos-ui-extensibility/dist/manifest.js"));
+var manifest_1 = __importDefault(__webpack_require__(/*! ./manifest */ "./node_modules/@neos-project/neos-ui-extensibility/dist/manifest.js"));
 var createReadOnlyValue = function createReadOnlyValue(value) {
     return {
         value: value,
@@ -112,7 +114,7 @@ function createConsumerApi(manifests, exposureMap) {
     Object.keys(exposureMap).forEach(function (key) {
         Object.defineProperty(api, key, createReadOnlyValue(exposureMap[key]));
     });
-    Object.defineProperty(api, '@manifest', createReadOnlyValue(manifest_1["default"](manifests)));
+    Object.defineProperty(api, '@manifest', createReadOnlyValue((0, manifest_1["default"])(manifests)));
     Object.defineProperty(window, '@Neos:HostPluginAPI', createReadOnlyValue(api));
 }
 exports["default"] = createConsumerApi;
@@ -130,16 +132,19 @@ exports["default"] = createConsumerApi;
 "use strict";
 
 
+var __importDefault = undefined && undefined.__importDefault || function (mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
+};
 exports.__esModule = true;
-var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-var createConsumerApi_1 = tslib_1.__importDefault(__webpack_require__(/*! ./createConsumerApi */ "./node_modules/@neos-project/neos-ui-extensibility/dist/createConsumerApi.js"));
+exports.SynchronousMetaRegistry = exports.SynchronousRegistry = exports.readFromConsumerApi = exports.createConsumerApi = void 0;
+var createConsumerApi_1 = __importDefault(__webpack_require__(/*! ./createConsumerApi */ "./node_modules/@neos-project/neos-ui-extensibility/dist/createConsumerApi.js"));
 exports.createConsumerApi = createConsumerApi_1["default"];
-var readFromConsumerApi_1 = tslib_1.__importDefault(__webpack_require__(/*! ./readFromConsumerApi */ "./node_modules/@neos-project/neos-ui-extensibility/dist/readFromConsumerApi.js"));
+var readFromConsumerApi_1 = __importDefault(__webpack_require__(/*! ./readFromConsumerApi */ "./node_modules/@neos-project/neos-ui-extensibility/dist/readFromConsumerApi.js"));
 exports.readFromConsumerApi = readFromConsumerApi_1["default"];
 var index_1 = __webpack_require__(/*! ./registry/index */ "./node_modules/@neos-project/neos-ui-extensibility/dist/registry/index.js");
 exports.SynchronousRegistry = index_1.SynchronousRegistry;
 exports.SynchronousMetaRegistry = index_1.SynchronousMetaRegistry;
-exports["default"] = readFromConsumerApi_1["default"]('manifest');
+exports["default"] = (0, readFromConsumerApi_1["default"])('manifest');
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -178,8 +183,38 @@ exports["default"] = function (manifests) {
 "use strict";
 
 
+var __read = undefined && undefined.__read || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o),
+        r,
+        ar = [],
+        e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) {
+            ar.push(r.value);
+        }
+    } catch (error) {
+        e = { error: error };
+    } finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        } finally {
+            if (e) throw e.error;
+        }
+    }
+    return ar;
+};
+var __spreadArray = undefined && undefined.__spreadArray || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 exports.__esModule = true;
-var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 function readFromConsumerApi(key) {
     return function () {
         var _a;
@@ -187,10 +222,10 @@ function readFromConsumerApi(key) {
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
         }
-        if (window['@Neos:HostPluginAPI'] && window['@Neos:HostPluginAPI']["@" + key]) {
-            return (_a = window['@Neos:HostPluginAPI'])["@" + key].apply(_a, tslib_1.__spread(args));
+        if (window['@Neos:HostPluginAPI'] && window['@Neos:HostPluginAPI']["@".concat(key)]) {
+            return (_a = window['@Neos:HostPluginAPI'])["@".concat(key)].apply(_a, __spreadArray([], __read(args), false));
         }
-        throw new Error("You are trying to read from a consumer api that hasn't been initialized yet!");
+        throw new Error('You are trying to read from a consumer api that hasn\'t been initialized yet!');
     };
 }
 exports["default"] = readFromConsumerApi;
@@ -231,11 +266,33 @@ exports["default"] = AbstractRegistry;
 "use strict";
 
 
+var __extends = undefined && undefined.__extends || function () {
+    var _extendStatics = function extendStatics(d, b) {
+        _extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) {
+                if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+            }
+        };
+        return _extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        _extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+var __importDefault = undefined && undefined.__importDefault || function (mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
+};
 exports.__esModule = true;
-var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-var SynchronousRegistry_1 = tslib_1.__importDefault(__webpack_require__(/*! ./SynchronousRegistry */ "./node_modules/@neos-project/neos-ui-extensibility/dist/registry/SynchronousRegistry.js"));
+var SynchronousRegistry_1 = __importDefault(__webpack_require__(/*! ./SynchronousRegistry */ "./node_modules/@neos-project/neos-ui-extensibility/dist/registry/SynchronousRegistry.js"));
 var SynchronousMetaRegistry = function (_super) {
-    tslib_1.__extends(SynchronousMetaRegistry, _super);
+    __extends(SynchronousMetaRegistry, _super);
     function SynchronousMetaRegistry() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
@@ -262,12 +319,34 @@ exports["default"] = SynchronousMetaRegistry;
 "use strict";
 
 
+var __extends = undefined && undefined.__extends || function () {
+    var _extendStatics = function extendStatics(d, b) {
+        _extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+            d.__proto__ = b;
+        } || function (d, b) {
+            for (var p in b) {
+                if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+            }
+        };
+        return _extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        _extendStatics(d, b);
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+}();
+var __importDefault = undefined && undefined.__importDefault || function (mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
+};
 exports.__esModule = true;
-var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-var AbstractRegistry_1 = tslib_1.__importDefault(__webpack_require__(/*! ./AbstractRegistry */ "./node_modules/@neos-project/neos-ui-extensibility/dist/registry/AbstractRegistry.js"));
-var positional_array_sorter_1 = tslib_1.__importDefault(__webpack_require__(/*! @neos-project/positional-array-sorter */ "./node_modules/@neos-project/positional-array-sorter/dist/positionalArraySorter.js"));
+var AbstractRegistry_1 = __importDefault(__webpack_require__(/*! ./AbstractRegistry */ "./node_modules/@neos-project/neos-ui-extensibility/dist/registry/AbstractRegistry.js"));
+var positional_array_sorter_1 = __importDefault(__webpack_require__(/*! @neos-project/positional-array-sorter */ "./node_modules/@neos-project/positional-array-sorter/dist/positionalArraySorter.js"));
 var SynchronousRegistry = function (_super) {
-    tslib_1.__extends(SynchronousRegistry, _super);
+    __extends(SynchronousRegistry, _super);
     function SynchronousRegistry(description) {
         var _this = _super.call(this, description) || this;
         _this._registry = [];
@@ -311,7 +390,7 @@ var SynchronousRegistry = function (_super) {
         var unsortedChildren = this._registry.filter(function (item) {
             return item.key.indexOf(searchKey + '/') === 0;
         });
-        return positional_array_sorter_1["default"](unsortedChildren);
+        return (0, positional_array_sorter_1["default"])(unsortedChildren);
     };
     SynchronousRegistry.prototype.getChildrenAsObject = function (searchKey) {
         var result = {};
@@ -335,7 +414,7 @@ var SynchronousRegistry = function (_super) {
         }));
     };
     SynchronousRegistry.prototype._getAllWrapped = function () {
-        return positional_array_sorter_1["default"](this._registry);
+        return (0, positional_array_sorter_1["default"])(this._registry);
     };
     SynchronousRegistry.prototype.getAllAsObject = function () {
         var result = {};
@@ -366,11 +445,14 @@ exports["default"] = SynchronousRegistry;
 "use strict";
 
 
+var __importDefault = undefined && undefined.__importDefault || function (mod) {
+    return mod && mod.__esModule ? mod : { "default": mod };
+};
 exports.__esModule = true;
-var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-var SynchronousRegistry_1 = tslib_1.__importDefault(__webpack_require__(/*! ./SynchronousRegistry */ "./node_modules/@neos-project/neos-ui-extensibility/dist/registry/SynchronousRegistry.js"));
+exports.SynchronousMetaRegistry = exports.SynchronousRegistry = void 0;
+var SynchronousRegistry_1 = __importDefault(__webpack_require__(/*! ./SynchronousRegistry */ "./node_modules/@neos-project/neos-ui-extensibility/dist/registry/SynchronousRegistry.js"));
 exports.SynchronousRegistry = SynchronousRegistry_1["default"];
-var SynchronousMetaRegistry_1 = tslib_1.__importDefault(__webpack_require__(/*! ./SynchronousMetaRegistry */ "./node_modules/@neos-project/neos-ui-extensibility/dist/registry/SynchronousMetaRegistry.js"));
+var SynchronousMetaRegistry_1 = __importDefault(__webpack_require__(/*! ./SynchronousMetaRegistry */ "./node_modules/@neos-project/neos-ui-extensibility/dist/registry/SynchronousMetaRegistry.js"));
 exports.SynchronousMetaRegistry = SynchronousMetaRegistry_1["default"];
 //# sourceMappingURL=index.js.map
 
@@ -1068,30 +1150,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _ckeditor5Exports = __webpack_require__(/*! ckeditor5-exports */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/ckeditor5-exports/index.js");
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
-
 
 /**
  * Set a key-value block style; e.g. "fontColor=red".
  */
 
-var BlockStyleCommand = function (_Command) {
-    _inherits(BlockStyleCommand, _Command);
-
+var BlockStyleCommand = class BlockStyleCommand extends _ckeditor5Exports.Command {
     /**
      * @param {module:core/editor/editor~Editor} editor
      * @param {String} attributeKey Attribute that will be set by the command.
      */
-    function BlockStyleCommand(editor, attributeKey) {
-        _classCallCheck(this, BlockStyleCommand);
+    constructor(editor, attributeKey) {
+        super(editor);
 
         /**
          * The attribute that will be set by the command.
@@ -1099,9 +1170,7 @@ var BlockStyleCommand = function (_Command) {
          * @readonly
          * @member {String}
          */
-        var _this = _possibleConstructorReturn(this, (BlockStyleCommand.__proto__ || Object.getPrototypeOf(BlockStyleCommand)).call(this, editor));
-
-        _this.attributeKey = attributeKey;
+        this.attributeKey = attributeKey;
 
         /**
          * Flag indicating whether the command is active. The command is active when the
@@ -1111,151 +1180,137 @@ var BlockStyleCommand = function (_Command) {
          * @readonly
          * @member {Boolean} #value
          */
-        return _this;
     }
 
     /**
      * Updates the command's {@link #value} and {@link #isEnabled}.
      */
+    refresh() {
+        var model = this.editor.model;
+        var doc = model.document;
+        var blocksToChange = Array.from(doc.selection.getSelectedBlocks());
 
+        this.value = this._getValueFromBlockNode();
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-    _createClass(BlockStyleCommand, [{
-        key: 'refresh',
-        value: function refresh() {
-            var model = this.editor.model;
-            var doc = model.document;
-            var blocksToChange = Array.from(doc.selection.getSelectedBlocks());
+        try {
+            for (var _iterator = blocksToChange[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var block = _step.value;
 
-            this.value = this._getValueFromBlockNode();
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
+                if (model.schema.checkAttribute(block, this.attributeKey)) {
+                    this.isEnabled = true;
+                }
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+    }
+
+    /**
+     * Executes the command &mdash; sets the attribute to the desired value. If there is no desired valued, removes the
+     * attribute on each block.
+     *
+     * @fires execute
+     * @param {Object} [options] Command options.
+     * @param {String} [options.value] The value to be set; if null or not existing, the attribute will be removed.
+     */
+    execute() {
+        var _this = this;
+
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+        var model = this.editor.model;
+        var doc = model.document;
+        var selection = doc.selection;
+        var value = options.value;
+        var blocksToChange = Array.from(selection.getSelectedBlocks());
+        model.change(function (writer) {
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
 
             try {
-                for (var _iterator = blocksToChange[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var block = _step.value;
+                for (var _iterator2 = blocksToChange[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var block = _step2.value;
 
-                    if (model.schema.checkAttribute(block, this.attributeKey)) {
-                        this.isEnabled = true;
+                    if (value) {
+                        writer.setAttribute(_this.attributeKey, value, block);
+                    } else {
+                        writer.removeAttribute(_this.attributeKey, block);
                     }
                 }
             } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
             } finally {
                 try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
                     }
                 } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
                     }
+                }
+            }
+        });
+    }
+
+    /**
+     * Checks the attribute value of the parent block node(s)
+     *
+     * @private
+     * @returns {String} The attribute value.
+     */
+    _getValueFromBlockNode() {
+        var model = this.editor.model;
+        var schema = model.schema;
+        var selection = model.document.selection;
+        var blocks = Array.from(selection.getSelectedBlocks());
+
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+            for (var _iterator3 = blocks[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var block = _step3.value;
+
+                if (schema.checkAttribute(block, this.attributeKey)) {
+                    return block.getAttribute(this.attributeKey);
+                }
+            }
+        } catch (err) {
+            _didIteratorError3 = true;
+            _iteratorError3 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                    _iterator3.return();
+                }
+            } finally {
+                if (_didIteratorError3) {
+                    throw _iteratorError3;
                 }
             }
         }
 
-        /**
-         * Executes the command &mdash; sets the attribute to the desired value. If there is no desired valued, removes the
-         * attribute on each block.
-         *
-         * @fires execute
-         * @param {Object} [options] Command options.
-         * @param {String} [options.value] The value to be set; if null or not existing, the attribute will be removed.
-         */
-
-    }, {
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-            var model = this.editor.model;
-            var doc = model.document;
-            var selection = doc.selection;
-            var value = options.value;
-            var blocksToChange = Array.from(selection.getSelectedBlocks());
-            model.change(function (writer) {
-                var _iteratorNormalCompletion2 = true;
-                var _didIteratorError2 = false;
-                var _iteratorError2 = undefined;
-
-                try {
-                    for (var _iterator2 = blocksToChange[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                        var block = _step2.value;
-
-                        if (value) {
-                            writer.setAttribute(_this2.attributeKey, value, block);
-                        } else {
-                            writer.removeAttribute(_this2.attributeKey, block);
-                        }
-                    }
-                } catch (err) {
-                    _didIteratorError2 = true;
-                    _iteratorError2 = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                            _iterator2.return();
-                        }
-                    } finally {
-                        if (_didIteratorError2) {
-                            throw _iteratorError2;
-                        }
-                    }
-                }
-            });
-        }
-
-        /**
-         * Checks the attribute value of the parent block node(s)
-         *
-         * @private
-         * @returns {String} The attribute value.
-         */
-
-    }, {
-        key: '_getValueFromBlockNode',
-        value: function _getValueFromBlockNode() {
-            var model = this.editor.model;
-            var schema = model.schema;
-            var selection = model.document.selection;
-            var blocks = Array.from(selection.getSelectedBlocks());
-
-            var _iteratorNormalCompletion3 = true;
-            var _didIteratorError3 = false;
-            var _iteratorError3 = undefined;
-
-            try {
-                for (var _iterator3 = blocks[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                    var block = _step3.value;
-
-                    if (schema.checkAttribute(block, this.attributeKey)) {
-                        return block.getAttribute(this.attributeKey);
-                    }
-                }
-            } catch (err) {
-                _didIteratorError3 = true;
-                _iteratorError3 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                        _iterator3.return();
-                    }
-                } finally {
-                    if (_didIteratorError3) {
-                        throw _iteratorError3;
-                    }
-                }
-            }
-
-            return undefined;
-        }
-    }]);
-
-    return BlockStyleCommand;
-}(_ckeditor5Exports.Command);
+        return undefined;
+    }
+}; // Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
 
 exports.default = BlockStyleCommand;
 
@@ -1275,8 +1330,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _ckeditor5Exports = __webpack_require__(/*! ckeditor5-exports */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/ckeditor5-exports/index.js");
 
 var _BlockStyleCommand = __webpack_require__(/*! ./BlockStyleCommand */ "./src/BlockStyleCommand.js");
@@ -1285,68 +1338,49 @@ var _BlockStyleCommand2 = _interopRequireDefault(_BlockStyleCommand);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 /**
  * FACTORY FUNCTION for the plugin
  * needs the current preset configuration as parameter.
  */
 exports.default = function (presetIdentifier, presetConfiguration) {
-    return function (_Plugin) {
-        _inherits(BlockStyleEditing, _Plugin);
+    return class BlockStyleEditing extends _ckeditor5Exports.Plugin {
+        init() {
+            var schema = this.editor.model.schema;
+            var modelAttributeKey = 'blockStyles-' + presetIdentifier;
+            var optionIdentifiers = Object.keys(presetConfiguration.options);
 
-        function BlockStyleEditing() {
-            _classCallCheck(this, BlockStyleEditing);
+            schema.extend('$block', { allowAttributes: modelAttributeKey });
 
-            return _possibleConstructorReturn(this, (BlockStyleEditing.__proto__ || Object.getPrototypeOf(BlockStyleEditing)).apply(this, arguments));
-        }
+            // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
+            schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
 
-        _createClass(BlockStyleEditing, [{
-            key: 'init',
-            value: function init() {
-                var schema = this.editor.model.schema;
-                var modelAttributeKey = 'blockStyles-' + presetIdentifier;
-                var optionIdentifiers = Object.keys(presetConfiguration.options);
+            // Model configuration
+            var config = {
+                model: {
+                    key: modelAttributeKey,
+                    values: optionIdentifiers
+                },
+                view: {}
+            };
 
-                schema.extend('$block', { allowAttributes: modelAttributeKey });
+            // View configuration
+            optionIdentifiers.forEach(function (optionIdentifier) {
+                var options = presetConfiguration.options[optionIdentifier];
+                var attribute = options.attribute || 'class';
+                var attributeValues = attribute === options.attribute ? options.attributeValue : options.cssClass.split(' ');
 
-                // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-                schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
-
-                // Model configuration
-                var config = {
-                    model: {
-                        key: modelAttributeKey,
-                        values: optionIdentifiers
-                    },
-                    view: {}
+                config.view[optionIdentifier] = {
+                    key: attribute,
+                    value: attributeValues
                 };
+            });
 
-                // View configuration
-                optionIdentifiers.forEach(function (optionIdentifier) {
-                    var options = presetConfiguration.options[optionIdentifier];
-                    var attribute = options.attribute || 'class';
-                    var attributeValues = attribute === options.attribute ? options.attributeValue : options.cssClass.split(' ');
+            // Convert the model to view correctly
+            this.editor.conversion.attributeToAttribute(config);
 
-                    config.view[optionIdentifier] = {
-                        key: attribute,
-                        value: attributeValues
-                    };
-                });
-
-                // Convert the model to view correctly
-                this.editor.conversion.attributeToAttribute(config);
-
-                this.editor.commands.add('blockStyles:' + presetIdentifier, new _BlockStyleCommand2.default(this.editor, modelAttributeKey));
-            }
-        }]);
-
-        return BlockStyleEditing;
-    }(_ckeditor5Exports.Plugin);
+            this.editor.commands.add('blockStyles:' + presetIdentifier, new _BlockStyleCommand2.default(this.editor, modelAttributeKey));
+        }
+    };
 };
 
 /***/ }),
@@ -1366,30 +1400,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _ckeditor5Exports = __webpack_require__(/*! ckeditor5-exports */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/ckeditor5-exports/index.js");
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
-
 
 /**
  * Set a key-value inline style; e.g. "fontColor=red".
  *
  */
-var InlineStylesCommand = function (_Command) {
-    _inherits(InlineStylesCommand, _Command);
-
+var InlineStylesCommand = class InlineStylesCommand extends _ckeditor5Exports.Command {
     /**
      * @param {module:core/editor/editor~Editor} editor
      * @param {String} attributeKey Attribute that will be set by the command.
      */
-    function InlineStylesCommand(editor, attributeKey) {
-        _classCallCheck(this, InlineStylesCommand);
+    constructor(editor, attributeKey) {
+        super(editor);
 
         /**
          * The attribute that will be set by the command.
@@ -1397,9 +1420,7 @@ var InlineStylesCommand = function (_Command) {
          * @readonly
          * @member {String}
          */
-        var _this = _possibleConstructorReturn(this, (InlineStylesCommand.__proto__ || Object.getPrototypeOf(InlineStylesCommand)).call(this, editor));
-
-        _this.attributeKey = attributeKey;
+        this.attributeKey = attributeKey;
 
         /**
          * Flag indicating whether the command is active. The command is active when the
@@ -1409,162 +1430,148 @@ var InlineStylesCommand = function (_Command) {
          * @readonly
          * @member {Boolean} #value
          */
-        return _this;
     }
 
     /**
      * Updates the command's {@link #value} and {@link #isEnabled} based on the current selection.
      */
+    refresh() {
+        var model = this.editor.model;
+        var doc = model.document;
 
+        this.value = this._getValueFromFirstAllowedNode();
+        this.isEnabled = model.schema.checkAttributeInSelection(doc.selection, this.attributeKey);
+    }
 
-    _createClass(InlineStylesCommand, [{
-        key: 'refresh',
-        value: function refresh() {
-            var model = this.editor.model;
-            var doc = model.document;
+    /**
+     * Executes the command &mdash; sets the attribute to the desired value. If there is no desired valued, removes the
+     * attribute.
+     *
+     * @fires execute
+     * @param {Object} [options] Command options.
+     * @param {String} [options.value] The value to be set; if null or not existing, the attribute will be removed.
+     */
+    execute() {
+        var _this = this;
 
-            this.value = this._getValueFromFirstAllowedNode();
-            this.isEnabled = model.schema.checkAttributeInSelection(doc.selection, this.attributeKey);
-        }
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-        /**
-         * Executes the command &mdash; sets the attribute to the desired value. If there is no desired valued, removes the
-         * attribute.
-         *
-         * @fires execute
-         * @param {Object} [options] Command options.
-         * @param {String} [options.value] The value to be set; if null or not existing, the attribute will be removed.
-         */
+        var model = this.editor.model;
+        var doc = model.document;
+        var selection = doc.selection;
+        var value = options.value;
 
-    }, {
-        key: 'execute',
-        value: function execute() {
-            var _this2 = this;
-
-            var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-            var model = this.editor.model;
-            var doc = model.document;
-            var selection = doc.selection;
-            var value = options.value;
-
-            model.change(function (writer) {
-                if (selection.isCollapsed) {
-                    if (value) {
-                        // value is existing, we want to set the selection attribute to the value.
-                        writer.setSelectionAttribute(_this2.attributeKey, value);
-                    } else {
-                        writer.removeSelectionAttribute(_this2.attributeKey);
-                    }
-                } else {
-                    var ranges = model.schema.getValidRanges(selection.getRanges(), _this2.attributeKey);
-
-                    var _iteratorNormalCompletion = true;
-                    var _didIteratorError = false;
-                    var _iteratorError = undefined;
-
-                    try {
-                        for (var _iterator = ranges[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                            var range = _step.value;
-
-                            if (value) {
-                                writer.setAttribute(_this2.attributeKey, value, range);
-                            } else {
-                                writer.removeAttribute(_this2.attributeKey, range);
-                            }
-                        }
-                    } catch (err) {
-                        _didIteratorError = true;
-                        _iteratorError = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion && _iterator.return) {
-                                _iterator.return();
-                            }
-                        } finally {
-                            if (_didIteratorError) {
-                                throw _iteratorError;
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        /**
-         * Checks the attribute value of the first node in the selection that allows the attribute.
-         * For the collapsed selection returns the selection attribute.
-         *
-         * @private
-         * @returns {String} The attribute value.
-         */
-
-    }, {
-        key: '_getValueFromFirstAllowedNode',
-        value: function _getValueFromFirstAllowedNode() {
-            var model = this.editor.model;
-            var schema = model.schema;
-            var selection = model.document.selection;
-
+        model.change(function (writer) {
             if (selection.isCollapsed) {
-                return selection.getAttribute(this.attributeKey);
-            }
-
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
-
-            try {
-                for (var _iterator2 = selection.getRanges()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                    var range = _step2.value;
-                    var _iteratorNormalCompletion3 = true;
-                    var _didIteratorError3 = false;
-                    var _iteratorError3 = undefined;
-
-                    try {
-                        for (var _iterator3 = range.getItems()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                            var item = _step3.value;
-
-                            if (schema.checkAttribute(item, this.attributeKey)) {
-                                return item.getAttribute(this.attributeKey);
-                            }
-                        }
-                    } catch (err) {
-                        _didIteratorError3 = true;
-                        _iteratorError3 = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                                _iterator3.return();
-                            }
-                        } finally {
-                            if (_didIteratorError3) {
-                                throw _iteratorError3;
-                            }
-                        }
-                    }
+                if (value) {
+                    // value is existing, we want to set the selection attribute to the value.
+                    writer.setSelectionAttribute(_this.attributeKey, value);
+                } else {
+                    writer.removeSelectionAttribute(_this.attributeKey);
                 }
-            } catch (err) {
-                _didIteratorError2 = true;
-                _iteratorError2 = err;
-            } finally {
+            } else {
+                var ranges = model.schema.getValidRanges(selection.getRanges(), _this.attributeKey);
+
+                var _iteratorNormalCompletion = true;
+                var _didIteratorError = false;
+                var _iteratorError = undefined;
+
                 try {
-                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                        _iterator2.return();
+                    for (var _iterator = ranges[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                        var range = _step.value;
+
+                        if (value) {
+                            writer.setAttribute(_this.attributeKey, value, range);
+                        } else {
+                            writer.removeAttribute(_this.attributeKey, range);
+                        }
                     }
+                } catch (err) {
+                    _didIteratorError = true;
+                    _iteratorError = err;
                 } finally {
-                    if (_didIteratorError2) {
-                        throw _iteratorError2;
+                    try {
+                        if (!_iteratorNormalCompletion && _iterator.return) {
+                            _iterator.return();
+                        }
+                    } finally {
+                        if (_didIteratorError) {
+                            throw _iteratorError;
+                        }
                     }
                 }
             }
+        });
+    }
 
-            return undefined;
+    /**
+     * Checks the attribute value of the first node in the selection that allows the attribute.
+     * For the collapsed selection returns the selection attribute.
+     *
+     * @private
+     * @returns {String} The attribute value.
+     */
+    _getValueFromFirstAllowedNode() {
+        var model = this.editor.model;
+        var schema = model.schema;
+        var selection = model.document.selection;
+
+        if (selection.isCollapsed) {
+            return selection.getAttribute(this.attributeKey);
         }
-    }]);
 
-    return InlineStylesCommand;
-}(_ckeditor5Exports.Command);
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+            for (var _iterator2 = selection.getRanges()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var range = _step2.value;
+                var _iteratorNormalCompletion3 = true;
+                var _didIteratorError3 = false;
+                var _iteratorError3 = undefined;
+
+                try {
+                    for (var _iterator3 = range.getItems()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                        var item = _step3.value;
+
+                        if (schema.checkAttribute(item, this.attributeKey)) {
+                            return item.getAttribute(this.attributeKey);
+                        }
+                    }
+                } catch (err) {
+                    _didIteratorError3 = true;
+                    _iteratorError3 = err;
+                } finally {
+                    try {
+                        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                            _iterator3.return();
+                        }
+                    } finally {
+                        if (_didIteratorError3) {
+                            throw _iteratorError3;
+                        }
+                    }
+                }
+            }
+        } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                    _iterator2.return();
+                }
+            } finally {
+                if (_didIteratorError2) {
+                    throw _iteratorError2;
+                }
+            }
+        }
+
+        return undefined;
+    }
+}; // Originally taken from https://raw.githubusercontent.com/ckeditor/ckeditor5/master/packages/ckeditor5-basic-styles/src/attributecommand.js and adjusted
 
 exports.default = InlineStylesCommand;
 
@@ -1584,8 +1591,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _ckeditor5Exports = __webpack_require__(/*! ckeditor5-exports */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/ckeditor5-exports/index.js");
 
 var _InlineStylesCommand = __webpack_require__(/*! ./InlineStylesCommand */ "./src/InlineStylesCommand.js");
@@ -1596,69 +1601,50 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 /**
  * FACTORY FUNCTION for the plugin
  * needs the current preset configuration as parameter.
  */
 exports.default = function (presetIdentifier, presetConfiguration) {
-    return function (_Plugin) {
-        _inherits(InlineStylesEditing, _Plugin);
+    return class InlineStylesEditing extends _ckeditor5Exports.Plugin {
+        init() {
+            var schema = this.editor.model.schema;
+            var optionIdentifiers = Object.keys(presetConfiguration.options);
+            var modelAttributeKey = 'inlineStyles-' + presetIdentifier;
 
-        function InlineStylesEditing() {
-            _classCallCheck(this, InlineStylesEditing);
+            schema.extend('$text', { allowAttributes: modelAttributeKey });
 
-            return _possibleConstructorReturn(this, (InlineStylesEditing.__proto__ || Object.getPrototypeOf(InlineStylesEditing)).apply(this, arguments));
-        }
+            // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
+            schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
 
-        _createClass(InlineStylesEditing, [{
-            key: 'init',
-            value: function init() {
-                var schema = this.editor.model.schema;
-                var optionIdentifiers = Object.keys(presetConfiguration.options);
-                var modelAttributeKey = 'inlineStyles-' + presetIdentifier;
+            // Model configuration
+            var config = {
+                model: {
+                    key: modelAttributeKey,
+                    values: optionIdentifiers
+                },
+                view: {}
+            };
 
-                schema.extend('$text', { allowAttributes: modelAttributeKey });
+            // View configuration
+            optionIdentifiers.forEach(function (optionIdentifier) {
+                var options = presetConfiguration.options[optionIdentifier];
+                var attribute = options.attribute;
 
-                // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-                schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
+                var classes = options.attributeValue || options.cssClass;
 
-                // Model configuration
-                var config = {
-                    model: {
-                        key: modelAttributeKey,
-                        values: optionIdentifiers
-                    },
-                    view: {}
+                config.view[optionIdentifier] = {
+                    name: 'span',
+                    attributes: _defineProperty({}, attribute ? attribute : 'class', classes)
                 };
+            });
 
-                // View configuration
-                optionIdentifiers.forEach(function (optionIdentifier) {
-                    var options = presetConfiguration.options[optionIdentifier];
-                    var attribute = options.attribute;
+            // Convert the model to view correctly
+            this.editor.conversion.attributeToElement(config);
 
-                    var classes = options.attributeValue || options.cssClass;
-
-                    config.view[optionIdentifier] = {
-                        name: 'span',
-                        attributes: _defineProperty({}, attribute ? attribute : 'class', classes)
-                    };
-                });
-
-                // Convert the model to view correctly
-                this.editor.conversion.attributeToElement(config);
-
-                this.editor.commands.add('inlineStyles:' + presetIdentifier, new _InlineStylesCommand2.default(this.editor, modelAttributeKey));
-            }
-        }]);
-
-        return InlineStylesEditing;
-    }(_ckeditor5Exports.Plugin);
+            this.editor.commands.add('inlineStyles:' + presetIdentifier, new _InlineStylesCommand2.default(this.editor, modelAttributeKey));
+        }
+    };
 };
 
 /***/ }),
@@ -1723,8 +1709,6 @@ exports.default = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _dec, _class, _class2, _temp;
 
 var _react = __webpack_require__(/*! react */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/react/index.js");
@@ -1755,69 +1739,47 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var BlockStyleSelector = (_dec = (0, _reactRedux.connect)((0, _plowJs.$transform)({
     formattingUnderCursor: _neosUiReduxStore.selectors.UI.ContentCanvas.formattingUnderCursor
-})), _dec(_class = (_temp = _class2 = function (_PureComponent) {
-    _inherits(BlockStyleSelector, _PureComponent);
+})), _dec(_class = (_temp = _class2 = class BlockStyleSelector extends _react.PureComponent {
 
-    function BlockStyleSelector() {
-        var _ref;
+    constructor() {
+        super(...arguments);
 
-        _classCallCheck(this, BlockStyleSelector);
-
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        var _this = _possibleConstructorReturn(this, (_ref = BlockStyleSelector.__proto__ || Object.getPrototypeOf(BlockStyleSelector)).call.apply(_ref, [this].concat(args)));
-
-        _this.handleOnSelect = _this.handleOnSelect.bind(_this);
-        return _this;
+        this.handleOnSelect = this.handleOnSelect.bind(this);
     }
 
-    _createClass(BlockStyleSelector, [{
-        key: 'render',
-        value: function render() {
-            var optionsForSelect = Object.entries(this.props.presetConfiguration.options).map(function (_ref2) {
-                var _ref3 = _slicedToArray(_ref2, 2),
-                    optionIdentifier = _ref3[0],
-                    optionConfiguration = _ref3[1];
+    render() {
+        var optionsForSelect = Object.entries(this.props.presetConfiguration.options).map(function (_ref) {
+            var _ref2 = _slicedToArray(_ref, 2),
+                optionIdentifier = _ref2[0],
+                optionConfiguration = _ref2[1];
 
-                return {
-                    value: optionIdentifier,
-                    label: optionConfiguration.label
-                };
-            });
+            return {
+                value: optionIdentifier,
+                label: optionConfiguration.label
+            };
+        });
 
-            if (optionsForSelect.length === 0) {
-                return null;
-            }
-
-            var currentValue = this.props.formattingUnderCursor['blockStyles:' + this.props.presetIdentifier];
-
-            return _react2.default.createElement(_reactUiComponents.SelectBox, {
-                options: optionsForSelect,
-                value: currentValue,
-                allowEmpty: true,
-                placeholder: this.props.presetConfiguration.label,
-                onValueChange: this.handleOnSelect
-            });
+        if (optionsForSelect.length === 0) {
+            return null;
         }
-    }, {
-        key: 'handleOnSelect',
-        value: function handleOnSelect(optionIdentifier) {
-            CkEditorApi.executeCommand('blockStyles:' + this.props.presetIdentifier, { value: optionIdentifier });
-        }
-    }]);
 
-    return BlockStyleSelector;
-}(_react.PureComponent), _class2.propTypes = {
+        var currentValue = this.props.formattingUnderCursor['blockStyles:' + this.props.presetIdentifier];
+
+        return _react2.default.createElement(_reactUiComponents.SelectBox, {
+            options: optionsForSelect,
+            value: currentValue,
+            allowEmpty: true,
+            placeholder: this.props.presetConfiguration.label,
+            onValueChange: this.handleOnSelect
+        });
+    }
+
+    handleOnSelect(optionIdentifier) {
+        CkEditorApi.executeCommand('blockStyles:' + this.props.presetIdentifier, { value: optionIdentifier });
+    }
+}, _class2.propTypes = {
     // from outside props
     presetIdentifier: _propTypes2.default.string.isRequired,
     presetConfiguration: _PresetType2.default.isRequired,
@@ -1846,8 +1808,6 @@ exports.default = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _dec, _class, _class2, _temp;
 
 var _react = __webpack_require__(/*! react */ "./node_modules/@neos-project/neos-ui-extensibility/src/shims/vendor/react/index.js");
@@ -1878,69 +1838,47 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var InlineStyleSelector = (_dec = (0, _reactRedux.connect)((0, _plowJs.$transform)({
     formattingUnderCursor: _neosUiReduxStore.selectors.UI.ContentCanvas.formattingUnderCursor
-})), _dec(_class = (_temp = _class2 = function (_PureComponent) {
-    _inherits(InlineStyleSelector, _PureComponent);
+})), _dec(_class = (_temp = _class2 = class InlineStyleSelector extends _react.PureComponent {
 
-    function InlineStyleSelector() {
-        var _ref;
+    constructor() {
+        super(...arguments);
 
-        _classCallCheck(this, InlineStyleSelector);
-
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-        }
-
-        var _this = _possibleConstructorReturn(this, (_ref = InlineStyleSelector.__proto__ || Object.getPrototypeOf(InlineStyleSelector)).call.apply(_ref, [this].concat(args)));
-
-        _this.handleOnSelect = _this.handleOnSelect.bind(_this);
-        return _this;
+        this.handleOnSelect = this.handleOnSelect.bind(this);
     }
 
-    _createClass(InlineStyleSelector, [{
-        key: 'render',
-        value: function render() {
-            var optionsForSelect = Object.entries(this.props.presetConfiguration.options).map(function (_ref2) {
-                var _ref3 = _slicedToArray(_ref2, 2),
-                    optionIdentifier = _ref3[0],
-                    optionConfiguration = _ref3[1];
+    render() {
+        var optionsForSelect = Object.entries(this.props.presetConfiguration.options).map(function (_ref) {
+            var _ref2 = _slicedToArray(_ref, 2),
+                optionIdentifier = _ref2[0],
+                optionConfiguration = _ref2[1];
 
-                return {
-                    value: optionIdentifier,
-                    label: optionConfiguration.label
-                };
-            });
+            return {
+                value: optionIdentifier,
+                label: optionConfiguration.label
+            };
+        });
 
-            if (optionsForSelect.length === 0) {
-                return null;
-            }
-
-            var currentValue = this.props.formattingUnderCursor['inlineStyles:' + this.props.presetIdentifier];
-
-            return _react2.default.createElement(_reactUiComponents.SelectBox, {
-                options: optionsForSelect,
-                value: currentValue,
-                allowEmpty: true,
-                placeholder: this.props.presetConfiguration.label,
-                onValueChange: this.handleOnSelect
-            });
+        if (optionsForSelect.length === 0) {
+            return null;
         }
-    }, {
-        key: 'handleOnSelect',
-        value: function handleOnSelect(optionIdentifier) {
-            CkEditorApi.executeCommand('inlineStyles:' + this.props.presetIdentifier, { value: optionIdentifier });
-        }
-    }]);
 
-    return InlineStyleSelector;
-}(_react.PureComponent), _class2.propTypes = {
+        var currentValue = this.props.formattingUnderCursor['inlineStyles:' + this.props.presetIdentifier];
+
+        return _react2.default.createElement(_reactUiComponents.SelectBox, {
+            options: optionsForSelect,
+            value: currentValue,
+            allowEmpty: true,
+            placeholder: this.props.presetConfiguration.label,
+            onValueChange: this.handleOnSelect
+        });
+    }
+
+    handleOnSelect(optionIdentifier) {
+        CkEditorApi.executeCommand('inlineStyles:' + this.props.presetIdentifier, { value: optionIdentifier });
+    }
+}, _class2.propTypes = {
     // from outside props
     presetIdentifier: _propTypes2.default.string.isRequired,
     presetConfiguration: _PresetType2.default.isRequired,
