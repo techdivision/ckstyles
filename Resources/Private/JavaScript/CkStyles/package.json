@@ -7,12 +7,9 @@
     "watch": "neos-react-scripts watch"
   },
   "devDependencies": {
-    "@neos-project/neos-ui-extensibility": "^8.2.3"
+    "@neos-project/neos-ui-extensibility-webpack-adapter": "^8.3.0"
   },
   "neos": {
     "buildTargetDirectory": "../../../Public/JavaScript/CkStyles"
-  },
-  "dependencies": {
-      "@neos-project/build-essentials": "^8.2.3"
   }
 }
