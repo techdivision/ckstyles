@@ -1,12 +1,17 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {SelectBox} from '@neos-project/react-ui-components';
+import {neos} from '@neos-project/neos-ui-decorators';
 import {connect} from 'react-redux';
 import {$transform} from 'plow-js';
 import PresetType from '../PresetType';
 
 import {selectors} from '@neos-project/neos-ui-redux-store';
 import * as CkEditorApi from '@neos-project/neos-ui-ckeditor5-bindings';
+
+@neos(globalRegistry => ({
+    i18nRegistry: globalRegistry.get('i18n')
+}))
 
 @connect($transform({
     formattingUnderCursor: selectors.UI.ContentCanvas.formattingUnderCursor
@@ -18,7 +23,10 @@ export default class InlineStyleSelector extends PureComponent {
         presetConfiguration: PresetType.isRequired,
 
         // from @connect
-        formattingUnderCursor: PropTypes.object
+        formattingUnderCursor: PropTypes.object,
+
+        // from @neos
+        i18nRegistry: PropTypes.object.isRequired
     };
 
     constructor(...args) {
@@ -28,10 +36,12 @@ export default class InlineStyleSelector extends PureComponent {
     }
 
     render() {
+        const {i18nRegistry} = this.props;
+
         const optionsForSelect = Object.entries(this.props.presetConfiguration.options)
             .map(([optionIdentifier, optionConfiguration]) => ({
                 value: optionIdentifier,
-                label: optionConfiguration.label
+                label: i18nRegistry.translate(optionConfiguration.label)
             }));
 
         if (optionsForSelect.length === 0) {
@@ -45,7 +55,7 @@ export default class InlineStyleSelector extends PureComponent {
                 options={optionsForSelect}
                 value={currentValue}
                 allowEmpty={true}
-                placeholder={this.props.presetConfiguration.label}
+                placeholder={i18nRegistry.translate(this.props.presetConfiguration.label)}
                 onValueChange={this.handleOnSelect}
             />
         );
