@@ -9,7 +9,7 @@ import * as CkEditorApi from '@neos-project/neos-ui-ckeditor5-bindings';
 
 @connect(
 	state => ({
-		formattingUnderCursor: selectors.CR.Nodes.focusedNodePathSelector(state),
+		formattingUnderCursor: selectors.UI.ContentCanvas.formattingUnderCursor(state),
 	})
 )
 export default class BlockStyleSelector extends PureComponent {
