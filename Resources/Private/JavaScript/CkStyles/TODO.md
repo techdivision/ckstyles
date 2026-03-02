@@ -7,3 +7,4 @@
 - Update Readme
 - Fix in-code TODOs
 - Think about duplication of information and logic
+- !!! Update composer.json to require neos ui with the minimum version that provides the needed ckeditor exports in extensibilityMap.json 
