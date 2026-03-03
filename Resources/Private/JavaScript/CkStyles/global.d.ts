@@ -1,1 +1,1 @@
-declare module '@neos-project/neos-ui-extensibility';
+declare module "@neos-project/neos-ui-extensibility";

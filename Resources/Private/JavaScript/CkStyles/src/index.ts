@@ -1,1 +1,1 @@
-import './manifest';
+import "./manifest";

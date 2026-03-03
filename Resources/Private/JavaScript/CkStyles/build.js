@@ -1,6 +1,6 @@
-const esbuild = require('esbuild');
+const esbuild = require("esbuild");
 const extensibilityMap = require("@neos-project/neos-ui-extensibility/extensibilityMap.json");
-const isWatch = process.argv.includes('--watch');
+const isWatch = process.argv.includes("--watch");
 
 /** @type {import("esbuild").BuildOptions} */
 const options = {
@@ -11,22 +11,25 @@ const options = {
     legalComments: "linked",
     target: "es2020",
     entryPoints: {
-        "Plugin": "./src/index.ts",
+        Plugin: "./src/index.ts",
     },
     outdir: "../../../../../Neos.NeosIo/Packages/Plugins/TechDivision.CkStyles/Resources/Public/JavaScript/CkStyles/",
     alias: {
         "@ckeditor/ckeditor5-ui/theme/components/form/form.css": "./empty.css",
         "@ckeditor/ckeditor5-ui/theme/components/responsive-form/responsiveform.css": "./empty.css",
-        ...extensibilityMap
+        ...extensibilityMap,
     },
     loader: {
-        '.svg': 'text',
-        '.css': 'empty'
-    }
-}
+        ".svg": "text",
+        ".css": "empty",
+    },
+};
 
 if (isWatch) {
-    esbuild.context(options).then((ctx) => ctx.watch())
+    (async () => {
+        const ctx = await esbuild.context(options);
+        await ctx.watch();
+    })();
 } else {
-    esbuild.build(options)
+    esbuild.build(options);
 }
