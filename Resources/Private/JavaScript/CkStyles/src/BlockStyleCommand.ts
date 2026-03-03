@@ -35,8 +35,8 @@ export default class BlockStyleCommand extends Command {
         const blocks = Array.from(doc.selection.getSelectedBlocks());
 
         // reset value and enabled state
-        this.value = [];
         this.isEnabled = false;
+        const values: string[] = [];
 
         for (const block of blocks) {
             if (schema.checkAttribute(block, this.attributeKey)) {
@@ -45,11 +45,13 @@ export default class BlockStyleCommand extends Command {
 
                 // if the block has the attribute and its value is one of the allowed values, add it to the command value
                 const value = block.getAttribute(this.attributeKey);
-                if (typeof value === "string" && this.value.includes(value) && value !== "") {
-                    this.value.push(value);
+                if (typeof value === "string" && values.includes(value) && value !== "") {
+                    values.push(value);
                 }
             }
         }
+
+        this.value = values;
     }
 
     /**

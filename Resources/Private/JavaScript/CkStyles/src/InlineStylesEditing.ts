@@ -17,7 +17,7 @@ import {
     INLINE_STYLING__COMMAND_PREFIX,
     TECHDIVISION_CKSTYLES__NAME_SPACE
 } from "./configuration";
-import { createAttributeKey, createCommandId, createDropdownId } from "./utils";
+import { createAttributeKey, createCommandId, createDropdownId, translateLabel } from "./utils";
 
 /**
  * FACTORY FUNCTION for the plugin
@@ -92,7 +92,7 @@ export function createInlineEditStylePlugin(
                     }
 
                     dropdownView.buttonView.set({
-                        label: presetConfiguration.label,
+                        label: translateLabel(presetConfiguration.label),
                         withText: presetConfiguration.showLabel ?? true,
                         tooltip: true,
                         icon: presetConfiguration.icon ?? null,
@@ -108,7 +108,7 @@ export function createInlineEditStylePlugin(
                             type: "button",
                             model: new UIModel({
                                 commandValue: optionIdentifier,
-                                label: option.label,
+                                label: translateLabel(option.label),
                                 icon: option.icon ?? null,
                                 withText: option.showLabel ?? true,
                                 toggleable: true,
@@ -125,12 +125,8 @@ export function createInlineEditStylePlugin(
                     // register execute event for dropdown
                     this.listenTo<ButtonExecuteEvent>(dropdownView, "execute", (evt) => {
                         // no type info on evt.source so we cast it to the expected type
-                        const { commandValue } = evt.source as {
-                            commandValue: string;
-                        };
-                        this.editor.execute(commandId, {
-                            value: commandValue,
-                        });
+                        const { commandValue } = evt.source as { commandValue: string };
+                        this.editor.execute(commandId, { value: commandValue });
                         this.editor.editing.view.focus();
                     });
 

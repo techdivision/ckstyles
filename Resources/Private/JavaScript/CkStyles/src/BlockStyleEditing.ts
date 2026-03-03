@@ -17,7 +17,7 @@ import {
     type CkStylesPresetIdentifier,
     TECHDIVISION_CKSTYLES__NAME_SPACE
 } from "./configuration";
-import { createAttributeKey, createCommandId, createDropdownId } from "./utils";
+import { createAttributeKey, createCommandId, createDropdownId, translateLabel } from "./utils";
 
 /**
  * FACTORY FUNCTION for the plugin
@@ -51,17 +51,17 @@ export function createBlockStyleEditingPlugin(
                     values: optionIdentifiers,
                 },
                 view: optionIdentifiers.reduce((viewConfig: Record<string, any>, optionIdentifier) => {
-                    const options = presetConfiguration.options[optionIdentifier]!;
+                    const option = presetConfiguration.options[optionIdentifier]!;
 
-                    if ("attribute" in options) {
+                    if ("attribute" in option) {
                         viewConfig[optionIdentifier] = {
                             key: "attribute",
-                            value: options.attributeValue,
+                            value: option.attributeValue,
                         };
-                    } else if ("cssClass" in options) {
+                    } else if ("cssClass" in option) {
                         viewConfig[optionIdentifier] = {
                             key: "class",
-                            value: options.cssClass,
+                            value: option.cssClass,
                         };
                     } else {
                         throw new Error(
@@ -90,7 +90,7 @@ export function createBlockStyleEditingPlugin(
                     }
 
                     dropdownView.buttonView.set({
-                        label: presetConfiguration.label,
+                        label: translateLabel(presetConfiguration.label),
                         withText: presetConfiguration.showLabel ?? true,
                         tooltip: true,
                         icon: presetConfiguration.icon ?? undefined,
@@ -106,7 +106,7 @@ export function createBlockStyleEditingPlugin(
                             type: "button",
                             model: new UIModel({
                                 commandValue: optionIdentifier,
-                                label: option.label,
+                                label: translateLabel(option.label),
                                 icon: option.icon ?? undefined,
                                 withText: option.showLabel ?? true,
                                 toggleable: true,

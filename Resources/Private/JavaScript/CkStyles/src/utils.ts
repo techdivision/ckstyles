@@ -1,3 +1,5 @@
+import { translate } from "@neos-project/neos-ui-i18n";
+
 import {
     BLOCK_STYLING__ATTRIBUTE_PREFIX,
     BLOCK_STYLING__COMMAND_PREFIX,
@@ -36,4 +38,18 @@ export function createAttributeKey(
     presetIdentifier: CkStylesPresetIdentifier,
 ): string {
     return `${attributePrefix}-${presetIdentifier}`;
+}
+
+const translationRegex = /^i18n\((.+)\)$/;
+
+export function translateLabel(label: string): string {
+    // If the label is in form "i18n(Trans:lation:Name.space)", treat it as a translation key and try to translate it.
+    const matches = label.match(translationRegex);
+
+    if (matches?.[1]) {
+        const translationKey = matches[1];
+        return translate(translationKey, label);
+    }
+
+    return label;
 }
