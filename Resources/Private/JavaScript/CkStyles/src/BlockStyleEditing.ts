@@ -40,9 +40,7 @@ export function createBlockStyleEditingPlugin(
             schema.extend("$block", { allowAttributes: modelAttributeKey });
 
             // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-            schema.setAttributeProperties(modelAttributeKey, {
-                isFormatting: true,
-            });
+            schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
 
             // Register model-view conversion
             this.editor.conversion.attributeToAttribute({
@@ -55,7 +53,7 @@ export function createBlockStyleEditingPlugin(
 
                     if ("attribute" in option) {
                         viewConfig[optionIdentifier] = {
-                            key: "attribute",
+                            key: option.attribute,
                             value: option.attributeValue,
                         };
                     } else if ("cssClass" in option) {

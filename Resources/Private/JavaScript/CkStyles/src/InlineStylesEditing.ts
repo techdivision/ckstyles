@@ -40,9 +40,7 @@ export function createInlineEditStylePlugin(
             schema.extend("$text", { allowAttributes: modelAttributeKey });
 
             // https://ckeditor.com/docs/ckeditor5/latest/features/remove-format.html
-            schema.setAttributeProperties(modelAttributeKey, {
-                isFormatting: true,
-            });
+            schema.setAttributeProperties(modelAttributeKey, { isFormatting: true });
 
             // Register model-view conversion
             this.editor.conversion.attributeToElement({

@@ -26,10 +26,7 @@ const options = {
 };
 
 if (isWatch) {
-    (async () => {
-        const ctx = await esbuild.context(options);
-        await ctx.watch();
-    })();
+    esbuild.context(options).then((ctx) => ctx.watch())
 } else {
     esbuild.build(options);
 }
