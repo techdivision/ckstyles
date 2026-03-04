@@ -78,7 +78,8 @@ export default class InlineStylesCommand extends Command {
         const model = this.editor.model;
         const doc = model.document;
         const selection = doc.selection;
-        const value = options.value;
+        // toggle value: if the value is already set, remove it; otherwise, set it to the provided value
+        const value = this.value === options.value ? undefined : options.value;
 
         model.change((writer) => {
             if (selection.isCollapsed) {

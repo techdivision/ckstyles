@@ -54,10 +54,10 @@ manifest(
                                     items: [toolbarItemId],
                                 };
                             } else if (Array.isArray(ckEditorConfiguration.toolbar)) {
-                                ckEditorConfiguration.toolbar.push(toolbarItemId);
+                                ckEditorConfiguration.toolbar.push('|', toolbarItemId);
                             } else {
                                 ckEditorConfiguration.toolbar.items = ckEditorConfiguration.toolbar.items ?? [];
-                                ckEditorConfiguration.toolbar.items.push(toolbarItemId);
+                                ckEditorConfiguration.toolbar.items.push('|', toolbarItemId);
                             }
                         }
 
@@ -91,10 +91,10 @@ manifest(
                                     items: [toolbarItemId],
                                 };
                             } else if (Array.isArray(ckEditorConfiguration.toolbar)) {
-                                ckEditorConfiguration.toolbar.push(toolbarItemId);
+                                ckEditorConfiguration.toolbar.push('|', toolbarItemId);
                             } else {
                                 ckEditorConfiguration.toolbar.items = ckEditorConfiguration.toolbar.items ?? [];
-                                ckEditorConfiguration.toolbar.items.push(toolbarItemId);
+                                ckEditorConfiguration.toolbar.items.push('|', toolbarItemId);
                             }
                         }
 

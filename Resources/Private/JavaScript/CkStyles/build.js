@@ -13,7 +13,7 @@ const options = {
     entryPoints: {
         Plugin: "./src/index.ts",
     },
-    outdir: "../../../../../Neos.NeosIo/Packages/Plugins/TechDivision.CkStyles/Resources/Public/JavaScript/CkStyles/",
+    outdir: "../../../Public/JavaScript/CkStyles/",
     alias: {
         "@ckeditor/ckeditor5-ui/theme/components/form/form.css": "./empty.css",
         "@ckeditor/ckeditor5-ui/theme/components/responsive-form/responsiveform.css": "./empty.css",

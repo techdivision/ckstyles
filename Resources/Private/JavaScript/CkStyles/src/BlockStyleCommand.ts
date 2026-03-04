@@ -67,8 +67,11 @@ export default class BlockStyleCommand extends Command {
         const doc = model.document;
         const selection = doc.selection;
 
-        const value = options.value;
-        const blocksToChange = selection.getSelectedBlocks();
+        const blocksToChange = Array.from(selection.getSelectedBlocks());
+
+        // toggle the value: if all selected blocks already have the attribute with the same value, remove it; otherwise, set it for all selected blocks
+        const allBlocksHaveValue = blocksToChange.every(block => block.getAttribute(this.attributeKey) === options.value);
+        const value = allBlocksHaveValue ? undefined : options.value;
 
         model.change((writer) => {
             for (const block of blocksToChange) {
