@@ -9,7 +9,7 @@ It is also possible to set a different attribute (for usage with placeholders fo
 
 **Demo:**
 
-<video src="https://github.com/user-attachments/assets/9bf6adc2-90c7-4730-a436-90c650e598f6"></video>
+<video src="https://github.com/user-attachments/assets/907773f1-19e5-4c89-a565-ea26f2d6c3c1" alt="Demo Video"></video>
 
 **Example output:**
 
