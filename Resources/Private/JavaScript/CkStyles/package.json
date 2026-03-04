@@ -3,13 +3,20 @@
   "license": "GNU GPLv3",
   "private": true,
   "scripts": {
-    "build": "neos-react-scripts build",
-    "watch": "neos-react-scripts watch"
+    "build": "tsc --noEmit && node build.js",
+    "watch": "concurrently -n 'TSC,ESBuild' 'tsc --noEmit --watch --incremental --preserveWatchOutput' 'node build.js --watch'",
+    "prettier:write": "prettier --write './**/*.{ts,js}'"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-core": "47.2.0",
+    "@ckeditor/ckeditor5-ui": "47.2.0",
+    "@ckeditor/ckeditor5-utils": "47.2.0",
+    "@neos-project/neos-ui-extensibility": "^9.1.4"
   },
   "devDependencies": {
-    "@neos-project/neos-ui-extensibility-webpack-adapter": "^8.3.0"
-  },
-  "neos": {
-    "buildTargetDirectory": "../../../Public/JavaScript/CkStyles"
+    "esbuild": "^0.27.3",
+    "typescript": "^5.9.3",
+    "concurrently": "^9.2.1",
+    "prettier": "^3.8.1"
   }
 }

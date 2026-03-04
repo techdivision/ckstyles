@@ -1,0 +1,2 @@
+# WHY empty?: We use prettier's defaults and applicable settings from .editorconfig.
+# WHY YAML format?: To be able to use comments like these.

@@ -1,0 +1,64 @@
+# An example configuration:
+#TechDivision:
+#  CkStyles:
+#    InlineStyles:
+#      presets:
+#        'fontColor':
+#          # preset and option labels can be translated
+#          #   example for translation:
+#          #     label: i18n(My.Package:CkStyles:InlineStyles.fontColor.label)
+#          #   This would look for the translation in "My.Package/Resources/Private/Translations/<locale>/CkStyles.xlf" with the key "InlineStyles.fontColor.label"
+#          #   Make sure the translation file is autoloaded via settings yaml:
+#          #     Neos:
+#          #       Neos:
+#          #         userInterface:
+#          #           translation:
+#          #             autoInclude:
+#          #               My.Package:
+#          #                 - 'CkStyles'
+#          label: 'Font color'
+#          options:
+#            'primary':
+#              label: 'Red'
+#              # presets and options can have icons
+#              #  The icon has to be svg markup. For example, you can use free icons from fontawesome (https://fontawesome.com/search?ic=free-collection) and use the svg markup.
+#              #  example for icon:
+#              #    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path class="my-class-red icon__shadow" d="M160 96L480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96z"/></svg>'
+#              #  The icon will be displayed in the button element of the dropdown/item.
+#              #  In the example above the icon has some custom styling: It is styled with the same class as the option, so it will be displayed in the same color as the option. And some shadow for better visibility.
+#              icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path class="my-class-red icon__shadow" d="M160 96L480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96z"/></svg>'
+#              # presets and options can hide the label and only show the icon by setting showLabel to false. By default, the label is shown.
+#              showLabel: false
+#              cssClass: 'my-class-red'
+#            'secondary':
+#              label: 'Green'
+#              cssClass: 'my-class-green'
+#            '':
+#              label: 'unset color'
+#              cssClass: null
+#        'fontSize':
+#          label: 'Font size'
+#          options:
+#            'small':
+#              label: 'Small'
+#              cssClass: 'my-class-size-small'
+#            'big':
+#              label: 'Large'
+#              cssClass: 'my-class-size-large'
+#            '':
+#              label: 'unset size'
+#              cssClass: null
+#    BlockStyles:
+#      presets:
+#        'indent':
+#          label: 'Indentation'
+#          options:
+#            'primary':
+#              label: '2 rem'
+#              cssClass: 'indent-2'
+#            'secondary':
+#              label: '4 rem'
+#              cssClass: 'indent-4'
+#            '':
+#              label: 'remove indent'
+#              cssClass: null
