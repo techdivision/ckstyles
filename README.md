@@ -12,6 +12,10 @@ It is also possible to set a different attribute (for usage with placeholders fo
 ![Applying inline style](Documentation/assets/InlineStyleDemo.gif "Inline style")
 
 
+
+<video src="https://github.com/user-attachments/assets/9bf6adc2-90c7-4730-a436-90c650e598f6"></video>
+
+
 **Example output:**
 
 ![Example output](Documentation/assets/ExampleOutput.png "Example output")
