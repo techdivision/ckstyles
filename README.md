@@ -101,6 +101,26 @@ Example: [Configuration/Settings.yaml](Configuration/Settings.yaml)
 - **Not null** Using an empty class (cssClass: null) to unset the value might cause errors during rendering in the backend. The select boxes of this package contain an "x" button for resetting the value.
 - Although you can add **multiple classes** by separating them with a whitespace. e.g. `btn btn-primary`, it is **highly recommended** to use only **one and unique** class across all Inline- or BlockStyles. See [known issues](#konwn-issues) for more details.
 
+**How to translate labels?**
+
+To provide localized labels you can pass the translation id for each label. [How to create your translations in Neos?](https://docs.neos.io/guide/rendering/translating-text-in-fusion#create-a-translation-file)  
+
+```yaml
+TechDivision:
+  CkStyles:
+    InlineStyles:
+      presets:
+        'fontColor':
+          label: Vendor.Package:Main:inlinestyles.fontcolor.label
+          options:
+            'primary':
+              label: Vendor.Package:Main:inlinestyles.fontcolor.options.red
+              cssClass: 'my-class-red'
+            'secondary':
+              label: Vendor.Package:Main:inlinestyles.fontcolor.options.green
+              cssClass: 'my-class-green'
+```
+
 ### 3. Activate the preset for your inline editable NodeType property:
 
 ```yaml

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { neos } from '@neos-project/neos-ui-decorators';
 import { SelectBox } from '@neos-project/react-ui-components';
 import { connect } from 'react-redux';
 import PresetType from '../PresetType';
@@ -7,20 +8,28 @@ import PresetType from '../PresetType';
 import { selectors } from '@neos-project/neos-ui-redux-store';
 import * as CkEditorApi from '@neos-project/neos-ui-ckeditor5-bindings';
 
+@neos(globalRegistry => ({
+    i18nRegistry: globalRegistry.get('i18n')
+}))
+
 @connect(
 	state => ({
 		formattingUnderCursor: selectors.UI.ContentCanvas.formattingUnderCursor(state),
 	})
 )
+
 export default class BlockStyleSelector extends PureComponent {
 	static propTypes = {
 		// from outside props
 		presetIdentifier: PropTypes.string.isRequired,
 		presetConfiguration: PresetType.isRequired,
 
-		// from @connect
-		formattingUnderCursor: PropTypes.object
-	};
+        // from @connect
+        formattingUnderCursor: PropTypes.object,
+
+        // from @neos
+        i18nRegistry: PropTypes.object.isRequired
+    };
 
 	constructor(...args) {
 		super(...args);
@@ -29,10 +38,12 @@ export default class BlockStyleSelector extends PureComponent {
 	}
 
 	render() {
+		const { i18nRegistry } = this.props;
+
 		const optionsForSelect = Object.entries(this.props.presetConfiguration.options)
 			.map(([optionIdentifier, optionConfiguration]) => ({
 				value: optionIdentifier,
-				label: optionConfiguration.label
+				label: i18nRegistry.translate(optionConfiguration.label)
 			}));
 
 		if (optionsForSelect.length === 0) {
@@ -46,7 +57,7 @@ export default class BlockStyleSelector extends PureComponent {
 				options={optionsForSelect}
 				value={currentValue}
 				allowEmpty={true}
-				placeholder={this.props.presetConfiguration.label}
+				placeholder={i18nRegistry.translate(this.props.presetConfiguration.label)}
 				onValueChange={this.handleOnSelect}
 			/>
 		);
