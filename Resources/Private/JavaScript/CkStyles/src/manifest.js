@@ -1,5 +1,4 @@
 import manifest from '@neos-project/neos-ui-extensibility';
-import {$get} from 'plow-js';
 
 import InlineStylesEditing from './InlineStylesEditing';
 import InlineStyleSelector from './components/InlineStyleSelector';

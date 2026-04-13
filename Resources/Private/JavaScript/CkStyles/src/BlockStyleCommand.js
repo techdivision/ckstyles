@@ -40,9 +40,12 @@ export default class BlockStyleCommand extends Command {
         const blocksToChange = Array.from(doc.selection.getSelectedBlocks());
 
         this.value = this._getValueFromBlockNode();
+        this.isEnabled = false;
+
         for (const block of blocksToChange) {
             if (model.schema.checkAttribute(block, this.attributeKey)) {
                 this.isEnabled = true;
+                break;
             }
         }
     }

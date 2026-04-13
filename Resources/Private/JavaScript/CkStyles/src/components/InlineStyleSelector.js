@@ -1,21 +1,23 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {SelectBox} from '@neos-project/react-ui-components';
-import {neos} from '@neos-project/neos-ui-decorators';
-import {connect} from 'react-redux';
-import {$transform} from 'plow-js';
+import { neos } from '@neos-project/neos-ui-decorators';
+import { SelectBox } from '@neos-project/react-ui-components';
+import { connect } from 'react-redux';
 import PresetType from '../PresetType';
 
-import {selectors} from '@neos-project/neos-ui-redux-store';
+import { selectors } from '@neos-project/neos-ui-redux-store';
 import * as CkEditorApi from '@neos-project/neos-ui-ckeditor5-bindings';
 
 @neos(globalRegistry => ({
     i18nRegistry: globalRegistry.get('i18n')
 }))
 
-@connect($transform({
-    formattingUnderCursor: selectors.UI.ContentCanvas.formattingUnderCursor
-}))
+@connect(
+    state => ({
+        formattingUnderCursor: selectors.UI.ContentCanvas.formattingUnderCursor(state),
+    })
+)
+
 export default class InlineStyleSelector extends PureComponent {
     static propTypes = {
         // from outside props
@@ -64,7 +66,7 @@ export default class InlineStyleSelector extends PureComponent {
     handleOnSelect(optionIdentifier) {
         CkEditorApi.executeCommand(
             `inlineStyles:${this.props.presetIdentifier}`,
-            {value: optionIdentifier}
+            { value: optionIdentifier }
         );
     }
 }
